@@ -1,10 +1,11 @@
 import { useState } from 'react'
-import './App.css'
+import AuthPage from './pages/Auth/AuthPage';
+import './App.css';
 
-const App= () => {
+const App = () => {
   return (
     <div>
-      Welcome To Rise Together
+      <AuthPage />
     </div>
   )
 }
