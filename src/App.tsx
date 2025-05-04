@@ -2,8 +2,10 @@
 
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import {AuthPage, Dashboard, AdminPanel} from './pages';
-import { ProtectedRoute, AdminRoute } from './routes';
+import {AuthPage, AdminPanel} from './pages';
+import {  AdminRoute } from './routes';
+import DashboardLayout from './layout/DashboardLayout';
+import DashboardRoutes from './routes/DashboardRoutes';
 import './App.css';
 
 const App: React.FC = () => {
@@ -11,12 +13,10 @@ const App: React.FC = () => {
     <Router>
       <Routes>
         <Route path="/auth" element={<AuthPage />} />
-        
-        <Route path="/dashboard" element={
-          <ProtectedRoute>
-            <Dashboard />
-          </ProtectedRoute>
-        } />
+
+        <Route path="/dashboard/*" element={<DashboardLayout />}>
+            {DashboardRoutes.props.children}
+        </Route>
 
         <Route path="/admin" element={
           <AdminRoute>
@@ -24,7 +24,6 @@ const App: React.FC = () => {
           </AdminRoute>
         } />
 
-        {/* Redirect everything else to auth */}
         <Route path="*" element={<Navigate to="/auth" />} />
       </Routes>
     </Router>
