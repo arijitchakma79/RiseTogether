@@ -1,48 +1,52 @@
-import React, {useState, FormEvent} from "react";
+import React, {useState} from "react";
+import {useAuth} from '../../contexts/AuthContext';
 import { LoginFormProps } from "./authTypes";
-import { useAuth } from "../../contexts/AuthContext";
-import { useNavigate } from 'react-router-dom';
 
 const LoginForm : React.FC<LoginFormProps> = ({switchToRegister}) => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const { login } = useAuth();
-    const navigate = useNavigate();
+    const {login, isLoading} = useAuth();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState<string | null>(null);
 
-    const handleLogin = (e: FormEvent) => {
-        e.preventDefault();
-
-        // Mock validation/authentication (replace with API call later)
-        const isAdmin = email === 'admin@example.com';
-
-        // Call context login()
-        login({
-            email,
-            role: isAdmin? 'admin' : 'user',
-            fullName: 'Mock User'
-        });
-        navigate(isAdmin ? '/admin' : '/dashboard');
+    const handleLogin = async () => {
+        const result = await login(email, password);
+        if (!result.success) {
+            setError(result.error || 'Login failed');
+        } else {
+            setError(null);
+        }
+        console.log('Result: ', result);
     };
 
     return (
-        <form onSubmit={handleLogin}>
-            <input 
-                type="email" 
-                placeholder="Email" 
-                onChange={e => setEmail(e.target.value)} 
-            />
-            <input 
-                type='password' 
-                placeholder="Password" 
-                onChange={e => setPassword(e.target.value)} 
-            />
-           
-            <button type="submit">
-                Login
+        <div className="auth-form">
+          <h3>Login</h3>
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            required
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            required
+          />
+          <button onClick={handleLogin} disabled={isLoading}>
+            {isLoading ? 'Logging in...' : 'Login'}
+          </button>
+          {error && <p className="error">{error}</p>}
+          <p>
+            Don't have an account?{' '}
+            <button onClick={switchToRegister} className="link-button">
+              Register
             </button>
-            <p>Don't have an account? <span onClick={switchToRegister}>Register</span></p>
-        </form>
-    )
-}
+          </p>
+        </div>
+    );
+};
 
 export default LoginForm;

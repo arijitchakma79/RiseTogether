@@ -1,46 +1,63 @@
-import React, { FormEvent, useState } from "react";
+// src/pages/Auth/RegisterForm.tsx
+
+import React, {useState} from "react";
+import { useAuth } from "../../contexts/AuthContext";
 import { RegisterFormProps } from "./authTypes";
 
-const RegisterForm : React.FC <RegisterFormProps> = ({switchToLogin}) => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [full_name, setFullName] = useState('');
-    
-    const handleRegister = (e: FormEvent) => {
-        e.preventDefault();
-        console.log('Registered user: ', email, full_name, password);
-          // TODO: Call backend registration API here
-    }
 
-    return (
-        <form onSubmit={handleRegister}>
-          <input
-            type="text"
-            placeholder="Full Name"
-            required
-            onChange={e => setFullName(e.target.value)}
-          />
-          <input
-            type="email"
-            placeholder="Email"
-            required
-            onChange={e => setEmail(e.target.value)}
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            required
-            onChange={e => setPassword(e.target.value)}
-          />
-          <button type="submit">Register</button>
-          <p>
-            Already have an account?{' '}
-            <span onClick={switchToLogin}>
-              Login
-            </span>
-          </p>
-        </form>
-      );
-    };
-    
+const RegisterForm : React.FC<RegisterFormProps> = ({switchToLogin}) => {
+  const { signup, isLoading } = useAuth();
+  const [email, setEmail] = useState('');
+  const [fullName, setFullName] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState<string | null>(null);
+
+  const handleSignup = async () => {
+    const result = await signup(email,  password, fullName);
+    if (!result.success) {
+      setError(result.error || 'Signup failed.');
+    } else {
+      setError(null);
+    }
+    console.log('SignUp data', result);
+  }
+
+  return (
+    <div className="auth-form">
+      <h3>Register</h3>
+      <input
+        type="text"
+        placeholder="Full Name"
+        value={fullName}
+        onChange={e => setFullName(e.target.value)}
+        required
+      />
+      <input
+        type="email"
+        placeholder="Email"
+        value={email}
+        onChange={e => setEmail(e.target.value)}
+        required
+      />
+      <input
+        type="password"
+        placeholder="Password"
+        value={password}
+        onChange={e => setPassword(e.target.value)}
+        required
+      />
+      <button onClick={handleSignup} disabled={isLoading}>
+        {isLoading ? 'Registering...' : 'Register'}
+      </button>
+      {error && <p className="error">{error}</p>}
+      <p>
+        Already have an account?{' '}
+        <button onClick={switchToLogin} className="link-button">
+          Login
+        </button>
+      </p>
+    </div>
+  );
+}
+
 export default RegisterForm;

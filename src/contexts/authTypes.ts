@@ -1,17 +1,19 @@
 // src/context/authTypes.ts
 
-export type Role = 'user' | 'admin'
+export type Role = 'user' | 'admin';
 
 export interface User {
-    email: string;
-    role: Role;
-    fullName?: string;
+  email: string;
+  role: Role;
+  fullName?: string;
+  displayName?: string;
 }
 
 export interface AuthContextType {
-    user: User | null;
-    login: (user: User) => void;
-    logout: () => void;
-    isAuthenticated: boolean;
+  user: User | null;
+  login: (email: string, password: string) => Promise<{ success: boolean; error?: string }>;
+  signup: (email: string, password: string, fullName: string, role?: Role) => Promise<{ success: boolean; error?: string }>;
+  logout: () => Promise<void>;
+  isAuthenticated: boolean;
+  isLoading: boolean;
 }
-  
