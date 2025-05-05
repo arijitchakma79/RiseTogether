@@ -100,6 +100,7 @@ import React, {
     };
   
     const logout = async () => {
+      console.log("Logging out")
       setIsLoading(true);
       await logout_user();
       setUser(null);
