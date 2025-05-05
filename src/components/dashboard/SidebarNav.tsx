@@ -16,20 +16,19 @@ const SidebarNav: React.FC = () => {
 
   return (
     <nav className="sidebar">
-      <div className="sidebar-header">
-        <h1>🌱 RiseTogether</h1>
-      </div>
-      <div className="nav-links">
-        <Link to="/dashboard" className={location.pathname === '/dashboard' ? 'active' : ''}>🏠 Home</Link>
-        <Link to="/dashboard/submit" className={location.pathname === '/dashboard/submit' ? 'active' : ''}>📩 Submit a Request</Link>
-        <Link to="/dashboard/my-requests" className={location.pathname === '/dashboard/my-requests' ? 'active' : ''}>📁 My Requests</Link>
-        <Link to="/dashboard/settings" className={location.pathname === '/dashboard/settings' ? 'active' : ''}>⚙️ Settings</Link>
+      <div className="sidebar-inner">
+        <div className="sidebar-header">
+          <p>Hi, {user?.fullName || user?.email}</p>
+        </div>
+        <div className="nav-links">
+          <Link to="/dashboard" className={location.pathname === '/dashboard' ? 'active' : ''}>🏠 Home</Link>
+          <Link to="/dashboard/submit" className={location.pathname === '/dashboard/submit' ? 'active' : ''}>📩 Submit a Request</Link>
+          <Link to="/dashboard/my-requests" className={location.pathname === '/dashboard/my-requests' ? 'active' : ''}>📁 My Requests</Link>
+          <Link to="/dashboard/settings" className={location.pathname === '/dashboard/settings' ? 'active' : ''}>⚙️ Settings</Link>
+        </div>
       </div>
 
       <div className="sidebar-footer">
-        <div className="profile">
-          <p>👤 {user?.fullName || user?.email}</p>
-        </div>
         <button onClick={handleLogout}>🚪 Logout</button>
       </div>
     </nav>
