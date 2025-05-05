@@ -1,7 +1,7 @@
 // src/layouts/DashboardLayout.tsx
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import SidebarNav from '../components/dashboard/SidebarNav.tsx';
+import { SidebarNav } from '../components';
 import '../styles/dashboard/Dashboard.css'
 
 const DashboardLayout: React.FC = () => {

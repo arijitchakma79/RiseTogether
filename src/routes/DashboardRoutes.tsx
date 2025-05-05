@@ -1,9 +1,7 @@
 // src/routes/DashboardRoutes.tsx
 import { Route } from 'react-router-dom';
 import DashboardLayout from '../layout/DashboardLayout'
-import HomePage from '../pages/dashboard/HomePage';
-import SubmitRequestPage from '../pages/dashboard/SubmitRequestPage';
-import MyRequestsPage from '../pages/dashboard/MyRequestPage';
+import { MyRequestsPage, HomePage, SubmitRequestPage, SettingsPage } from '../pages';
 import { ProtectedRoute } from '.';
 
 const DashboardRoutes = (
@@ -11,6 +9,7 @@ const DashboardRoutes = (
     <Route index element={<HomePage />} />
     <Route path="submit" element={<SubmitRequestPage />} />
     <Route path="my-requests" element={<MyRequestsPage />} />
+    <Route path="settings" element={<SettingsPage/>}/>
   </Route>
 );
 
