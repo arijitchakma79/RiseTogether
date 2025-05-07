@@ -8,7 +8,7 @@ export const uploadDonationImage = async (
 ): Promise<string> => {
   if (!file) {
     // Return category-specific or default placeholder image
-    return `https://pnspvpoweseinjpnqbtr.supabase.co/storage/v1/object/public/donation-images/basic_images/${category}.jpg`;
+    return `https://pnspvpoweseinjpnqbtr.supabase.co/storage/v1/object/public/donation-images/basic_images/${category}.png`;
   }
 
   const filePath = `${userId}/${Date.now()}_${file.name}`;
