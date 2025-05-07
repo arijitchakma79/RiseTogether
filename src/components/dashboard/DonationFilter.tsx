@@ -1,35 +1,67 @@
-import React from "react";
+import React from 'react';
 import '../../styles/dashboard/DonationFilterBar.css';
 
 type Props = {
-    onFilter: (category: string) => void;
+  category: string;
+  onCategoryChange: (category: string) => void;
+  dateRange: { from: string; to: string };
+  onDateRangeChange: (range: { from: string; to: string }) => void;
 };
 
 const categories = [
-    '',
-    'Food',
-    'Education',
-    'Clothes',
-    'Healthcare',
-    'Electronics',
-    'Financial',
-    'Others',
+  '',
+  'Food',
+  'Education',
+  'Clothes',
+  'Healthcare',
+  'Electronics',
+  'Financial',
+  'Others',
 ];
 
+const DonationFilter: React.FC<Props> = ({
+  category,
+  onCategoryChange,
+  dateRange,
+  onDateRangeChange,
+}) => {
+  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    onDateRangeChange({ ...dateRange, [name]: value });
+  };
 
-const DonationFilterBar : React.FC<Props> = ({ onFilter }) => {
-    return (
-        <div className="filter-bar">
-          <label htmlFor="category">Filter by Category: </label>
-          <select id="category" onChange={(e) => onFilter(e.target.value)}>
-            {categories.map((cat) => (
-              <option key={cat} value={cat}>
-                {cat === '' ? 'All' : cat}
-              </option>
-            ))}
-          </select>
-        </div>
-    );
-}
+  return (
+    <div className="filter-bar">
+      <label htmlFor="category-select">Category:</label>
+      <select 
+        id="category-select"
+        value={category} 
+        onChange={(e) => onCategoryChange(e.target.value)}
+      >
+        {categories.map((cat) => (
+          <option key={cat} value={cat}>
+            {cat === '' ? 'All' : cat}
+          </option>
+        ))}
+      </select>
+      <label htmlFor="date-from">From:</label>
+      <input
+        type="date"
+        name="from"
+        id="date-from"
+        value={dateRange.from}
+        onChange={handleDateChange}
+      />
+      <label htmlFor="date-to">To:</label>
+      <input
+        type="date"
+        name="to"
+        id="date-to"
+        value={dateRange.to}
+        onChange={handleDateChange}
+      />
+    </div>
+  );
+};
 
-export default DonationFilterBar
+export default DonationFilter;

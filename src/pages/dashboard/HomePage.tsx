@@ -9,27 +9,41 @@ const HomePage: React.FC = () => {
   const [requests, setRequests] = useState([]);
   const [filtered, setFiltered] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [filterCategory, setFilterCategory] = useState('');
+  const [filterDates, setFilterDates] = useState({ from: '', to: '' });
 
   useEffect(() => {
     fetchRequests();
   }, []);
 
+  useEffect(() => {
+    applyFilters();
+  }, [requests, filterCategory, filterDates]);
+
   const fetchRequests = async () => {
     try {
       const { data } = await get_all_donation_request('donation_requests');
       setRequests(data);
-      setFiltered(data);
     } catch (error) {
-      console.error("Failed to fetch donation requests:", error);
+      console.error('Failed to fetch donation requests:', error);
     }
   };
 
-  const handleFilter = (category: string) => {
-    if (!category) {
-      setFiltered(requests);
-    } else {
-      setFiltered(requests.filter((req) => req.category === category));
+  const applyFilters = () => {
+    let filteredData = [...requests];
+
+    if (filterCategory) {
+      filteredData = filteredData.filter(req => req.category === filterCategory);
     }
+
+    if (filterDates.from && filterDates.to) {
+      filteredData = filteredData.filter(req => {
+        const createdAt = new Date(req.created_at);
+        return createdAt >= new Date(filterDates.from) && createdAt <= new Date(filterDates.to);
+      });
+    }
+
+    setFiltered(filteredData);
     setCurrentPage(1);
   };
 
@@ -40,11 +54,16 @@ const HomePage: React.FC = () => {
 
   return (
     <div className="home-page-container">
-      <DonationFilter onFilter={handleFilter} />
+      <DonationFilter
+        category={filterCategory}
+        onCategoryChange={setFilterCategory}
+        dateRange={filterDates}
+        onDateRangeChange={setFilterDates}
+      />
       <div className="request-grid">
         {paginated.length > 0 ? (
           paginated.map((req) => (
-            <DonationRequestCard key={req.uid} request={req} />
+            <DonationRequestCard key={req.id || req.uid} request={req} />
           ))
         ) : (
           <p className="no-results">No donation requests found.</p>

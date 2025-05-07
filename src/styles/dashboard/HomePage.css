@@ -1,4 +1,6 @@
 .home-page-container {
+    max-width: 100%;
+    margin: 0 auto;
     padding: 1rem;
   }
   
@@ -11,7 +13,7 @@
   
   .no-results {
     text-align: center;
-    font-size: 1rem;
-    color: #888;
+    font-size: 1.1rem;
+    color: #999;
   }
   
