@@ -1,4 +1,5 @@
 import React from 'react';
+import '../../styles/dashboard/Pagination.css';
 
 type Props = {
   currentPage: number;
