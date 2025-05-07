@@ -48,20 +48,21 @@ const SubmitRequestPage: React.FC = () => {
     setLoading(true);
     setError(null);
     setSuccess(false);
-
+  
     try {
-      if (!user) throw new Error('You must be logged in to submit a request');
-
+      if (!user?.uid) throw new Error('You must be logged in to submit a request');
+  
       const imageUrl = await uploadDonationImage(selectedFile, user.uid, form.category);
-
+  
       const request = {
         ...form,
         image_url: imageUrl,
         created_by: user.uid,
       };
-
-      await add_donation_request('donation_requests', request);
-
+  
+      const result = await add_donation_request('donation_requests', request);
+      console.log('✅ Request inserted:', result);
+  
       setSuccess(true);
       setForm({
         title: '',
@@ -72,6 +73,7 @@ const SubmitRequestPage: React.FC = () => {
       });
       setSelectedFile(null);
     } catch (err: any) {
+      console.error('❌ Submission error:', err);
       setError(err.message || 'Something went wrong');
     } finally {
       setLoading(false);

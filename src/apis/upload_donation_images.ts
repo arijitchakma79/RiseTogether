@@ -1,36 +1,32 @@
 // src/services/uploadDonationImage.ts
 import supabase from '../supabase/supabaseClient';
 
-
 export const uploadDonationImage = async (
   file: File | null,
   userId: string,
   category: string
 ): Promise<string> => {
   if (!file) {
-    const { data } = supabase.storage
-      .from('donation-images')
-      .getPublicUrl(`basic_images/${category}.jpg`);
-
-    // If that exact category image doesn't exist, fallback to generic
-    return data?.publicUrl ?? supabase.storage
-      .from('donation-images')
-      .getPublicUrl(`basic_images/default.jpg`).data.publicUrl;
+    // Return category-specific or default placeholder image
+    return `https://pnspvpoweseinjpnqbtr.supabase.co/storage/v1/object/public/donation-images/basic_images/${category}.jpg`;
   }
 
   const filePath = `${userId}/${Date.now()}_${file.name}`;
 
-  const { error } = await supabase.storage
+  const { data: uploadData, error: uploadError } = await supabase.storage
     .from('donation-images')
-    .upload(filePath, file);
+    .upload(filePath, file, {
+      upsert: false,
+      contentType: file.type,
+      cacheControl: '3600',
+    });
 
-  if (error) {
-    throw error;
+  if (uploadError) {
+    console.error('Upload error:', uploadError);
+    throw new Error(`Upload failed: ${uploadError.message}`);
   }
 
-  const { data } = supabase.storage
-    .from('donation-images')
-    .getPublicUrl(filePath);
-
-  return data.publicUrl;
+  // ✅ Public bucket – generate the URL directly
+  const publicUrl = `https://pnspvpoweseinjpnqbtr.supabase.co/storage/v1/object/public/donation-images/${uploadData.path}`;
+  return publicUrl;
 };
