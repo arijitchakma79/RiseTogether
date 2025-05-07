@@ -6,8 +6,8 @@ import '../../styles/dashboard/HomePage.css';
 const ITEMS_PER_PAGE = 10;
 
 const HomePage: React.FC = () => {
-  const [requests, setRequests] = useState([]);
-  const [filtered, setFiltered] = useState([]);
+  const [requests, setRequests] = useState<any>([]);
+  const [filtered, setFiltered] = useState<any>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [filterCategory, setFilterCategory] = useState('');
   const [filterDates, setFilterDates] = useState({ from: '', to: '' });
@@ -62,7 +62,7 @@ const HomePage: React.FC = () => {
       />
       <div className="request-grid">
         {paginated.length > 0 ? (
-          paginated.map((req) => (
+          paginated.map((req: any) => (
             <DonationRequestCard key={req.id || req.uid} request={req} />
           ))
         ) : (
