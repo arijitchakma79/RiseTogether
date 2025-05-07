@@ -44,7 +44,7 @@ const HomePage: React.FC = () => {
       <div className="request-grid">
         {paginated.length > 0 ? (
           paginated.map((req) => (
-            <DonationRequestCard key={req.id} request={req} />
+            <DonationRequestCard key={req.uid} request={req} />
           ))
         ) : (
           <p className="no-results">No donation requests found.</p>
