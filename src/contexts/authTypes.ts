@@ -4,6 +4,7 @@ export type Role = 'user' | 'admin';
 
 export interface User {
   email: string;
+  uid: string;
   role: Role;
   fullName?: string;
   displayName?: string;

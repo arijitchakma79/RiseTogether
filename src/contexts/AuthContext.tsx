@@ -23,11 +23,13 @@ import React, {
         setIsLoading(true);
         const { data } = await supabase.auth.getSession();
         const sessionUser = data?.session?.user;
+        console.log("sessionUser:", sessionUser)
   
         if (sessionUser) {
           const metadata = sessionUser.user_metadata || {};
           setUser({
             email: sessionUser.email!,
+            uid: sessionUser.id,
             role: metadata.userRole || 'user',
             fullName: metadata.fullName || '',
             displayName: metadata.displayName || '',
@@ -48,6 +50,7 @@ import React, {
           const metadata = sessionUser.user_metadata || {};
           setUser({
             email: sessionUser.email!,
+            uid: sessionUser.id,
             role: metadata.userRole || 'user',
             fullName: metadata.fullName || '',
             displayName: metadata.displayName || '',
@@ -78,6 +81,7 @@ import React, {
       const metadata = sessionUser.user_metadata || {};
       setUser({
         email: sessionUser.email!,
+        uid: sessionUser.id,
         role: metadata.userRole as Role || 'user',
         fullName: metadata.fullName || '',
         displayName: metadata.displayName || '',
