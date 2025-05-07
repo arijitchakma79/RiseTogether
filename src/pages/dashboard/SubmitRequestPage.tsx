@@ -1,8 +1,10 @@
 // src/pages/dashboard/SubmitRequestPage.tsx
-import React, { useState} from 'react';
+import React, { useState } from 'react';
+import '../../styles/dashboard/SubmitRequestPage.css';
 import { add_donation_request } from '../../apis/donation_requests_api';
 import { useAuth } from '../../contexts/AuthContext';
 import { uploadDonationImage } from '../../apis/upload_donation_images';
+import { FormField, FileUpload } from '../../components';
 
 const categories = [
   'Food',
@@ -15,15 +17,15 @@ const categories = [
 ];
 
 const SubmitRequestPage: React.FC = () => {
-  const {user} = useAuth();
+  const { user } = useAuth();
   const [form, setForm] = useState({
     title: '',
     description: '',
     category: '',
     contact_number: '',
     contact_email: '',
+  });
 
-  })
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -51,15 +53,15 @@ const SubmitRequestPage: React.FC = () => {
       if (!user) throw new Error('You must be logged in to submit a request');
 
       const imageUrl = await uploadDonationImage(selectedFile, user.uid, form.category);
-      
+
       const request = {
-        ...form, 
+        ...form,
         image_url: imageUrl,
-        created_by: user.uid
-      }
+        created_by: user.uid,
+      };
 
       await add_donation_request('donation_requests', request);
-      
+
       setSuccess(true);
       setForm({
         title: '',
@@ -74,68 +76,68 @@ const SubmitRequestPage: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  }
-  
+  };
+
   return (
-    <div style={{ maxWidth: '600px', margin: '2rem auto' }}>
-      <h2>Submit a Donation Request</h2>
+    <div className="submit-request-container">
+      <div className="submit-request-left">
+        <h2>Welcome</h2>
+        <p>Thank you for choosing to donate. Your generosity brings change.</p>
+      </div>
 
-      {success && <p style={{ color: 'green' }}>✅ Request submitted successfully!</p>}
-      {error && <p style={{ color: 'red' }}>❌ {error}</p>}
+      <div className="submit-request-right">
+        <h2 className="form-title">Submit a Donation Request</h2>
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="title"
-          placeholder="Title"
-          value={form.title}
-          onChange={handleChange}
-          required
-        /><br /><br />
+        {success && <p className="success-msg">✅ Request submitted successfully!</p>}
+        {error && <p className="error-msg">❌ {error}</p>}
 
-        <textarea
-          name="description"
-          placeholder="Description"
-          value={form.description}
-          onChange={handleChange}
-          rows={4}
-        /><br /><br />
+        <form onSubmit={handleSubmit} className="donation-form">
+          <FormField
+            name="title"
+            value={form.title}
+            onChange={handleChange}
+            label="Title"
+          />
 
-        <select name="category" value={form.category} onChange={handleChange} required>
-          <option value="">Select Category</option>
-          {categories.map((cat) => (
-            <option key={cat} value={cat}>{cat}</option>
-          ))}
-        </select><br /><br />
+          <FormField
+            name="description"
+            value={form.description}
+            onChange={handleChange}
+            label="Description"
+            textarea
+          />
 
-        <input
-          type="text"
-          name="contact_number"
-          placeholder="Contact Number"
-          value={form.contact_number}
-          onChange={handleChange}
-          required
-        /><br /><br />
+          <FormField
+            name="category"
+            value={form.category}
+            onChange={handleChange}
+            label="Category"
+            select
+            options={categories}
+          />
 
-        <input
-          type="email"
-          name="contact_email"
-          placeholder="Contact Email (optional)"
-          value={form.contact_email}
-          onChange={handleChange}
-        /><br /><br />
+          <FormField
+            name="contact_number"
+            value={form.contact_number}
+            onChange={handleChange}
+            label="Contact Number"
+          />
 
-        <label>Upload Image (optional):</label><br />
-        <input
-          type="file"
-          accept="image/*"
-          onChange={handleFileChange}
-        /><br /><br />
+          <FormField
+            name="contact_email"
+            value={form.contact_email}
+            onChange={handleChange}
+            label="Contact Email (optional)"
+            type="email"
+          />
 
-        <button type="submit" disabled={loading}>
-          {loading ? 'Submitting...' : 'Submit Request'}
-        </button>
-      </form>
+          <FileUpload onChange={handleFileChange} fileName={selectedFile?.name} />
+
+          <button type="submit" disabled={loading}>
+            {loading ? 'Submitting...' : 'Submit Request'}
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

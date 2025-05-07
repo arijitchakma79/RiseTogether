@@ -1,0 +1,197 @@
+/* src/styles/dashboard/SubmitRequestPage.css */
+
+.submit-request-container {
+    width: 100%;
+    max-width: 900px;
+    background: white;
+    margin: auto;
+    display: flex;
+    border-radius: 1.25rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+  }
+  
+  /* Left welcome panel */
+  .submit-request-left {
+    width: 40%;
+    background: linear-gradient(to bottom right, #99dfc3, #44534d);
+    color: white;
+    padding: 2.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    text-align: center;
+  }
+  
+  .submit-request-left h2 {
+    font-size: 2rem;
+    font-weight: 700;
+  }
+  
+  .submit-request-left p {
+    font-size: 1rem;
+    opacity: 0.9;
+  }
+  
+  /* Right form panel */
+  .submit-request-right {
+    flex: 1;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .form-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #111827;
+    text-align: center;
+  }
+  
+  /* Form Fields */
+  .form-field {
+    position: relative;
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .field-input,
+  .textarea,
+  .select {
+    padding: 1.2rem 1rem 0.6rem 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.75rem;
+    font-size: 1rem;
+    background-color: white;
+    transition: 0.2s ease;
+  }
+  
+  .field-input:focus,
+  .textarea:focus,
+  .select:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+    outline: none;
+  }
+  
+  .field-label {
+    position: absolute;
+    top: 0.9rem;
+    left: 1rem;
+    background: white;
+    color: #6b7280;
+    font-size: 0.95rem;
+    font-weight: 500;
+    pointer-events: none;
+    transition: all 0.2s ease;
+    padding: 0 0.3rem;
+  }
+  
+  .field-input:focus + .field-label,
+  .textarea:focus + .field-label,
+  .field-input:not(:placeholder-shown) + .field-label,
+  .textarea:not(:placeholder-shown) + .field-label,
+  .select:valid + .field-label {
+    top: -0.6rem;
+    left: 0.75rem;
+    font-size: 0.75rem;
+    color: #6366f1;
+  }
+  
+  /* File Upload */
+  input[type="file"] {
+    display: none;
+  }
+  
+  .upload-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .upload-filename {
+    font-size: 0.9rem;
+    color: #374151;
+    font-weight: 500;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  .upload-button {
+    background: linear-gradient(to right, #6366f1, #8b5cf6);
+    color: white;
+    padding: 0.75rem 1.25rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.3s ease;
+  }
+  
+  .upload-button:hover {
+    background: linear-gradient(to right, #4f46e5, #7c3aed);
+  }
+  
+  /* Button */
+  .donation-form button {
+    background-color: #f43f5e;
+    color: white;
+    padding: 1rem;
+    border: none;
+    border-radius: 0.75rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .donation-form button:hover {
+    background-color: #e11d48;
+  }
+  
+  /* Success & Error Messages */
+  .success-msg,
+  .error-msg {
+    font-weight: 500;
+    text-align: center;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+  }
+  
+  .success-msg {
+    background-color: #ecfdf5;
+    color: #047857;
+    border: 1px solid #10b981;
+  }
+  
+  .error-msg {
+    background-color: #fef2f2;
+    color: #b91c1c;
+    border: 1px solid #f87171;
+  }
+  
+  /* Responsive */
+  @media (max-width: 900px) {
+    .submit-request-container {
+      flex-direction: column;
+    }
+  
+    .submit-request-left,
+    .submit-request-right {
+      width: 100%;
+      padding: 2rem;
+    }
+  
+    .form-title {
+      font-size: 1.75rem;
+    }
+  }
+  

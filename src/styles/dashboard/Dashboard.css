@@ -6,9 +6,29 @@
   overflow: hidden;
 }
 
+/* Main content area beside the sidebar */
 .content {
   flex: 1;
-  margin-left: 260px; /* Match sidebar width */
-  padding: 2rem;
+  margin-left: 260px; /* Matches sidebar width */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 0;
+  background-color: #f3f4f6; /* Light gray background for contrast */
   overflow-y: auto;
+}
+
+/* Responsive adjustment: top-aligned on smaller viewports */
+@media (max-height: 700px) {
+  .content {
+    align-items: flex-start;
+    padding-top: 3rem;
+  }
+}
+
+/* Make sure all form content inside .content scrolls well */
+.content form {
+  width: 100%;
+  max-width: 600px;
 }
