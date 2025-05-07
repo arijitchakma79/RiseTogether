@@ -1,4 +1,5 @@
 import React from "react";
+import '../../styles/dashboard/DonationFilterBar.css';
 
 type Props = {
     onFilter: (category: string) => void;
