@@ -38,7 +38,7 @@ export const upsert_donation_request = async(table_name:string, request: Donatio
 }
 
 export const filter_donation_request_by_uid = async(table_name:string, uid: string) => {
-    const {data, error} = await supabase.from(table_name).select().eq('id', uid).order('created_at', { ascending: false });
+    const {data, error} = await supabase.from(table_name).select().eq('created_by', uid).order('created_at', { ascending: false });
     
     if (error) {
         throw error

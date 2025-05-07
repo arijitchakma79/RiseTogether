@@ -3,7 +3,7 @@ import { get_all_donation_request } from '../../apis/donation_requests_api';
 import { DonationFilter, DonationRequestCard, Pagination } from '../../components';
 import '../../styles/dashboard/HomePage.css';
 
-const ITEMS_PER_PAGE = 10;
+const ITEMS_PER_PAGE = 8;
 
 const HomePage: React.FC = () => {
   const [requests, setRequests] = useState<any>([]);

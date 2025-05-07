@@ -6,7 +6,7 @@ import {AuthPage, AdminPanel} from './pages';
 import {  AdminRoute } from './routes';
 import DashboardLayout from './layout/DashboardLayout';
 import DashboardRoutes from './routes/DashboardRoutes';
-import './App.css';
+import './styles/App.css';
 
 const App: React.FC = () => {
   return (
