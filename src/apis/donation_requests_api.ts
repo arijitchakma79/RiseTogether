@@ -79,4 +79,37 @@ export const filter_donation_requests_by_category = async (
     return { success: true, data };
   };
   
-
+  export const filter_donation_requests_by_status = async (
+    table_name: string,
+    status: string
+  ) => {
+    const { data, error } = await supabase
+      .from(table_name)
+      .select()
+      .eq('status', status)
+      .order('created_at', { ascending: false });
+  
+    if (error) throw error;
+  
+    return { success: true, data };
+  };
+  
+export const fulfill_donation_request = async (
+    table_name: string,
+    requestId: number,
+    fulfillerId: string
+  ) => {
+    const { error } = await supabase
+      .from(table_name)
+      .update({
+        status: 'fulfilled',
+        fulfilled_by: fulfillerId
+      })
+      .eq('id', requestId);
+  
+    if (error) {
+      throw error;
+    }
+  
+    return { success: true };
+  };

@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { get_all_donation_request } from '../../apis/donation_requests_api';
+import {
+  get_all_donation_request,
+  fulfill_donation_request
+} from '../../apis/donation_requests_api';
 import { DonationFilter, DonationRequestCard, Pagination } from '../../components';
+import { useAuth } from '../../contexts/AuthContext'; 
 import '../../styles/dashboard/HomePage.css';
 
 const ITEMS_PER_PAGE = 8;
 
 const HomePage: React.FC = () => {
-  const [requests, setRequests] = useState<any>([]);
-  const [filtered, setFiltered] = useState<any>([]);
+  const { user } = useAuth(); // ✅ Get current user ID
+  const [requests, setRequests] = useState<any[]>([]);
+  const [filtered, setFiltered] = useState<any[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [filterCategory, setFilterCategory] = useState('');
   const [filterDates, setFilterDates] = useState({ from: '', to: '' });
@@ -47,6 +52,20 @@ const HomePage: React.FC = () => {
     setCurrentPage(1);
   };
 
+  const handleFulfill = async (id: string) => {
+    try {
+      if (!user?.uid) {
+        alert("You must be logged in to fulfill a request.");
+        return;
+      }
+
+      await fulfill_donation_request('donation_requests', parseInt(id), user.uid);
+      await fetchRequests(); // Refresh data after update
+    } catch (error) {
+      console.error('Failed to fulfill request:', error);
+    }
+  };
+
   const paginated = filtered.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
     currentPage * ITEMS_PER_PAGE
@@ -62,8 +81,8 @@ const HomePage: React.FC = () => {
       />
       <div className="request-grid">
         {paginated.length > 0 ? (
-          paginated.map((req: any) => (
-            <DonationRequestCard key={req.id || req.uid} request={req} />
+          paginated.map((req) => (
+            <DonationRequestCard key={req.id} request={req} onFulfill={handleFulfill} />
           ))
         ) : (
           <p className="no-results">No donation requests found.</p>
