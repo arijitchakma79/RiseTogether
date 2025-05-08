@@ -1,4 +1,3 @@
-// src/components/ui/FormField.tsx
 import React from 'react';
 
 interface FormFieldProps {
@@ -19,7 +18,7 @@ const FormField: React.FC<FormFieldProps> = ({
   name,
   value,
   onChange,
-  placeholder = '',
+  placeholder = ' ',
   textarea = false,
   select = false,
   options = [],
@@ -33,8 +32,9 @@ const FormField: React.FC<FormFieldProps> = ({
             name={name}
             value={value}
             onChange={onChange}
-            placeholder={placeholder}
+            placeholder=" "
             className="field-input textarea"
+            required={!label.toLowerCase().includes('optional')}
           />
           <label htmlFor={name} className="field-label">{label}</label>
         </>
@@ -46,6 +46,7 @@ const FormField: React.FC<FormFieldProps> = ({
             value={value}
             onChange={onChange}
             className="field-input select"
+            required
           >
             <option value="" disabled hidden>{label}</option>
             {options.map((opt) => (
@@ -62,8 +63,9 @@ const FormField: React.FC<FormFieldProps> = ({
             name={name}
             value={value}
             onChange={onChange}
-            placeholder={placeholder}
+            placeholder=" "
             className="field-input"
+            required={!label.toLowerCase().includes('optional')}
           />
           <label htmlFor={name} className="field-label">{label}</label>
         </>
