@@ -52,26 +52,25 @@ export const logout_user = async () => {
   export const update_user = async (
     email?: string,
     password?: string,
-    fullname?: string,
-    phoneNumber?: string
+    fullname?: string
   ) => {
     try {
       const updatePayload: any = {};
   
       if (email) updatePayload.email = email;
       if (password) updatePayload.password = password;
-      if (fullname !== undefined || phoneNumber !== undefined) {
-        updatePayload.data = {
-          ...(fullname !== undefined ? { fullName: fullname } : {}),
-          ...(phoneNumber !== undefined ? { phoneNumber: phoneNumber } : {}),
-        };
+  
+      if (fullname !== undefined) {
+        updatePayload.data = { fullName: fullname };
       }
   
       const { data, error } = await supabase.auth.updateUser(updatePayload);
       if (error) throw error;
+  
       return { success: true, data };
     } catch (err: any) {
       return { success: false, error: err.message || 'Update failed' };
     }
   };
+  
   

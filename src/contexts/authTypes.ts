@@ -8,6 +8,7 @@ export interface User {
   role: Role;
   fullName?: string;
   displayName?: string;
+  phoneNumber?: string;
 }
 
 export interface AuthContextType {
