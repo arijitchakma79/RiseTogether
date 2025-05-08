@@ -6,6 +6,8 @@ type Props = {
   onCategoryChange: (category: string) => void;
   dateRange: { from: string; to: string };
   onDateRangeChange: (range: { from: string; to: string }) => void;
+  status: string;
+  onStatusChange: (status: string) => void;
 };
 
 const categories = [
@@ -19,11 +21,15 @@ const categories = [
   'Others',
 ];
 
+const statuses = ['', 'pending', 'fulfilled'];
+
 const DonationFilter: React.FC<Props> = ({
   category,
   onCategoryChange,
   dateRange,
   onDateRangeChange,
+  status,
+  onStatusChange
 }) => {
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -33,9 +39,9 @@ const DonationFilter: React.FC<Props> = ({
   return (
     <div className="filter-bar">
       <label htmlFor="category-select">Category:</label>
-      <select 
+      <select
         id="category-select"
-        value={category} 
+        value={category}
         onChange={(e) => onCategoryChange(e.target.value)}
       >
         {categories.map((cat) => (
@@ -44,6 +50,20 @@ const DonationFilter: React.FC<Props> = ({
           </option>
         ))}
       </select>
+
+      <label htmlFor="status-select">Status:</label>
+      <select
+        id="status-select"
+        value={status}
+        onChange={(e) => onStatusChange(e.target.value)}
+      >
+        {statuses.map((stat) => (
+          <option key={stat} value={stat}>
+            {stat === '' ? 'All' : stat}
+          </option>
+        ))}
+      </select>
+
       <label htmlFor="date-from">From:</label>
       <input
         type="date"

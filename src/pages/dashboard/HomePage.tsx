@@ -16,6 +16,7 @@ const HomePage: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [filterCategory, setFilterCategory] = useState('');
   const [filterDates, setFilterDates] = useState({ from: '', to: '' });
+  const [filterStatus, setFilterStatus] = useState('');
 
   useEffect(() => {
     fetchRequests();
@@ -23,7 +24,7 @@ const HomePage: React.FC = () => {
 
   useEffect(() => {
     applyFilters();
-  }, [requests, filterCategory, filterDates]);
+  }, [requests, filterCategory, filterDates, filterStatus]);
 
   const fetchRequests = async () => {
     try {
@@ -46,6 +47,10 @@ const HomePage: React.FC = () => {
         const createdAt = new Date(req.created_at);
         return createdAt >= new Date(filterDates.from) && createdAt <= new Date(filterDates.to);
       });
+    }
+
+    if (filterStatus) {
+      filteredData = filteredData.filter(req => req.status === filterStatus);
     }
 
     setFiltered(filteredData);
@@ -78,6 +83,8 @@ const HomePage: React.FC = () => {
         onCategoryChange={setFilterCategory}
         dateRange={filterDates}
         onDateRangeChange={setFilterDates}
+        status={filterStatus}
+        onStatusChange={setFilterStatus}
       />
       <div className="request-grid">
         {paginated.length > 0 ? (
