@@ -118,6 +118,7 @@ import React, {
       signup,
       isAuthenticated: !!user,
       isLoading,
+      setUser,
     };
   
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

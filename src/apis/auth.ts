@@ -48,3 +48,26 @@ export const logout_user = async () => {
       return { success: false, error: err.message || 'Logout failed' };
     }
   };
+
+export const update_user = async (
+    email?: string,
+    password?: string,
+    fullname?: string
+  ) => {
+    try {
+      const updatePayload: any = {};
+  
+      if (email) updatePayload.email = email;
+      if (password) updatePayload.password = password;
+      if (fullname !== undefined) {
+        updatePayload.data = { fullName: fullname || '' };
+      }
+  
+      const { data, error } = await supabase.auth.updateUser(updatePayload);
+  
+      if (error) throw error;
+      return { success: true, data };
+    } catch (err: any) {
+      return { success: false, error: err.message || 'Update failed' };
+    }
+  };
