@@ -35,7 +35,7 @@ const DonationRequestCard: React.FC<Props> = ({ request, onFulfill }) => {
       ) : (
         onFulfill && (
           <button className="fulfill-btn" onClick={() => onFulfill(request.id)}>
-            Fulfill
+            I'm Interested
           </button>
         )
       )}
