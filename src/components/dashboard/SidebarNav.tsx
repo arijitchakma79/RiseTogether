@@ -22,7 +22,7 @@ const SidebarNav: React.FC = () => {
         </div>
         <div className="nav-links">
           <Link to="/dashboard" className={location.pathname === '/dashboard' ? 'active' : ''}>🏠 Home</Link>
-          <Link to="/dashboard/submit" className={location.pathname === '/dashboard/submit' ? 'active' : ''}>📩 Submit a Request</Link>
+          <Link to="/dashboard/submit" className={location.pathname === '/dashboard/submit' ? 'active' : ''}>📩 Submit a Donation</Link>
           <Link to="/dashboard/my-requests" className={location.pathname === '/dashboard/my-requests' ? 'active' : ''}>📁 My Requests</Link>
           <Link to="/dashboard/settings" className={location.pathname === '/dashboard/settings' ? 'active' : ''}>⚙️ Settings</Link>
         </div>
