@@ -14,10 +14,10 @@ type Props = {
     status?: string;
     fulfilled_by?: string;
   };
-  onFulfill?: (id: string) => void; 
+  onRequest?: () => void;
 };
 
-const DonationRequestCard: React.FC<Props> = ({ request, onFulfill }) => {
+const DonationRequestCard: React.FC<Props> = ({ request, onRequest }) => {
   const isFulfilled = request.status === 'fulfilled';
 
   return (
@@ -33,8 +33,8 @@ const DonationRequestCard: React.FC<Props> = ({ request, onFulfill }) => {
       {isFulfilled ? (
         <p className="fulfilled-status"><strong>Status:</strong> Fulfilled ✅</p>
       ) : (
-        onFulfill && (
-          <button className="fulfill-btn" onClick={() => onFulfill(request.id)}>
+        onRequest && (
+          <button className="fulfill-btn" onClick={onRequest}>
             I'm Interested
           </button>
         )

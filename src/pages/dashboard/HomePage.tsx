@@ -3,20 +3,26 @@ import {
   get_all_donation_request,
   fulfill_donation_request
 } from '../../apis/donation_requests_api';
-import { DonationFilter, DonationRequestCard, Pagination } from '../../components';
-import { useAuth } from '../../contexts/AuthContext'; 
+import {
+  DonationFilter,
+  DonationRequestCard,
+  Pagination,
+  SubmitRequestForm
+} from '../../components';
+import { useAuth } from '../../contexts/AuthContext';
 import '../../styles/dashboard/HomePage.css';
 
 const ITEMS_PER_PAGE = 8;
 
 const HomePage: React.FC = () => {
-  const { user } = useAuth(); // ✅ Get current user ID
+  const { user } = useAuth();
   const [requests, setRequests] = useState<any[]>([]);
   const [filtered, setFiltered] = useState<any[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [filterCategory, setFilterCategory] = useState('');
   const [filterDates, setFilterDates] = useState({ from: '', to: '' });
   const [filterStatus, setFilterStatus] = useState('');
+  const [selectedRequest, setSelectedRequest] = useState<any | null>(null); // for popup form
 
   useEffect(() => {
     fetchRequests();
@@ -57,18 +63,15 @@ const HomePage: React.FC = () => {
     setCurrentPage(1);
   };
 
-  const handleFulfill = async (id: string) => {
-    try {
-      if (!user?.uid) {
-        alert("You must be logged in to fulfill a request.");
-        return;
-      }
-
-      await fulfill_donation_request('donation_requests', parseInt(id), user.uid);
-      await fetchRequests(); // Refresh data after update
-    } catch (error) {
-      console.error('Failed to fulfill request:', error);
-    }
+  const handleFormSubmit = (formData: {
+    name: string;
+    contact_number: string;
+    contact_email?: string;
+    reason: string;
+  }) => {
+    console.log('User is interested in request:', selectedRequest);
+    console.log('Form data submitted:', formData);
+    setSelectedRequest(null); // close popup
   };
 
   const paginated = filtered.slice(
@@ -86,21 +89,34 @@ const HomePage: React.FC = () => {
         status={filterStatus}
         onStatusChange={setFilterStatus}
       />
+
       <div className="request-grid">
         {paginated.length > 0 ? (
           paginated.map((req) => (
-            <DonationRequestCard key={req.id} request={req} onFulfill={handleFulfill} />
+            <DonationRequestCard
+              key={req.id}
+              request={req}
+              onRequest={() => setSelectedRequest(req)}
+            />
           ))
         ) : (
           <p className="no-results">No donation requests found.</p>
         )}
       </div>
+
       <Pagination
         currentPage={currentPage}
         totalItems={filtered.length}
         itemsPerPage={ITEMS_PER_PAGE}
         onPageChange={setCurrentPage}
       />
+
+      {selectedRequest && (
+        <SubmitRequestForm
+          onClose={() => setSelectedRequest(null)}
+          onSubmit={handleFormSubmit}
+        />
+      )}
     </div>
   );
 };
