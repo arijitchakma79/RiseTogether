@@ -1,3 +1,6 @@
+// src/pages/Auth/AuthLayout.tsx
+
+
 import React from 'react';
 import {AuthLayoutProps} from './authTypes';
 import './auth.css';

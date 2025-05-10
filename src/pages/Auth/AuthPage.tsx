@@ -1,3 +1,5 @@
+// src/pages/Auth/AuthPage.tsx
+
 import React, {useState} from 'react';
 import AuthLayout from './AuthLayout';
 import LoginForm from './LoginForm';
