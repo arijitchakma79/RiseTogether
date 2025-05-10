@@ -1,17 +1,124 @@
+/* === Base Layout === */
 .dashboard {
   display: flex;
   height: 100vh;
+  position: relative;
 }
 
+/* === Sidebar (Desktop) === */
 .sidebar {
   width: 240px;
-  background-color: #1f2937; /* dark */
-  color: white;
+  background-color: #1f2937;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+  transition: transform 0.3s ease-in-out;
 }
 
+/* === Main Content === */
 .content {
   flex: 1;
+  margin-left: 240px;
   padding: 20px;
   overflow-y: auto;
   background-color: #f9fafb;
+  width: calc(100% - 240px);
+}
+
+/* === Mobile Navbar === */
+.mobile-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 56px;
+  width: 100%;
+  background-color: #1f2937;
+  color: white;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+/* ✅ Final, flat, minimal hamburger icon */
+.hamburger {
+  font-size: 1.25rem;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 2px;
+  margin: 0;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+  transition: background 0.2s;
+}
+
+.hamburger:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.mobile-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin: 0 auto;
+  text-align: center;
+  flex-grow: 1;
+}
+
+/* === Overlay === */
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 800;
+}
+
+.overlay.show {
+  display: block;
+}
+
+/* === Responsive (Mobile) === */
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+    width: 220px;
+  }
+
+  .sidebar.show-mobile {
+    transform: translateX(0);
+  }
+
+  .content {
+    margin-left: 0;
+    padding-top: 56px;
+    width: 100%;
+  }
+
+  .mobile-navbar {
+    display: flex;
+  }
+}
+
+/* === Responsive (Desktop) === */
+@media (min-width: 769px) {
+  .mobile-navbar {
+    display: none !important;
+  }
+
+  .content {
+    margin-left: 240px;
+    padding-top: 20px;
+  }
 }
