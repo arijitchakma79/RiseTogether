@@ -1,19 +1,18 @@
-// src/pages/Auth/RegisterForm.tsx
-
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { RegisterFormProps } from "./authTypes";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
-
-const RegisterForm : React.FC<RegisterFormProps> = ({switchToLogin}) => {
+const RegisterForm: React.FC<RegisterFormProps> = ({ switchToLogin }) => {
   const { signup, isLoading } = useAuth();
   const [email, setEmail] = useState('');
   const [fullName, setFullName] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const handleSignup = async () => {
-    const result = await signup(email,  password, fullName);
+    const result = await signup(email, password, fullName);
     if (!result.success) {
       setError(result.error || 'Signup failed.');
     } else {
@@ -39,13 +38,21 @@ const RegisterForm : React.FC<RegisterFormProps> = ({switchToLogin}) => {
         onChange={e => setEmail(e.target.value)}
         required
       />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={e => setPassword(e.target.value)}
-        required
-      />
+      <div className="password-wrapper">
+        <input
+          type={showPassword ? "text" : "password"}
+          placeholder="Password"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+          required
+        />
+        <span
+          className="toggle-password"
+          onClick={() => setShowPassword(!showPassword)}
+        >
+          {showPassword ? <FaEyeSlash /> : <FaEye />}
+        </span>
+      </div>
       <button onClick={handleSignup} disabled={isLoading}>
         {isLoading ? 'Registering...' : 'Register'}
       </button>
@@ -58,6 +65,6 @@ const RegisterForm : React.FC<RegisterFormProps> = ({switchToLogin}) => {
       </p>
     </div>
   );
-}
+};
 
 export default RegisterForm;
