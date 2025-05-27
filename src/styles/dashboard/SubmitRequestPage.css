@@ -1,122 +1,119 @@
-.submit-request-container {
+/* src/styles/dashboard/SubmitRequestPage.css */
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
   width: 100%;
-  max-width: 960px;
-  background: white;
-  margin: 2rem auto;
-  display: flex;
-  border-radius: 1.5rem;
-  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
+  box-sizing: border-box;
 }
 
-/* Left panel */
+.submit-request-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  background: white;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
 .submit-request-left {
   width: 40%;
-  background: linear-gradient(135deg, #3f4442, #25272c);
+  background: linear-gradient(to bottom right, #3f4442, #25272c);
   color: white;
-  padding: 3rem 2rem;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 1.5rem;
   text-align: center;
 }
 
 .submit-request-left h2 {
-  font-size: 2.25rem;
+  font-size: 2rem;
   font-weight: 800;
 }
 
 .submit-request-left p {
-  font-size: 1.1rem;
-  opacity: 0.95;
-  line-height: 1.5;
+  font-size: 1rem;
+  opacity: 0.9;
+  margin-top: 1rem;
 }
 
-/* Right panel */
 .submit-request-right {
   flex: 1;
-  padding: 3rem 2.5rem;
+  padding: 2rem;
+  background: #f9fafb;
   display: flex;
   flex-direction: column;
-  gap: 2.5rem;
+  gap: 2rem;
 }
 
 .form-title {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #111827;
+  font-size: 1.6rem;
+  font-weight: bold;
   text-align: center;
+  color: #111827;
 }
 
-/* Form fields */
+.donation-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
 .form-field {
-  margin-bottom: 1.25rem;
+  position: relative;
 }
 
 .field-input,
-.textarea,
 .select {
-  padding: 1.1rem 1rem 0.6rem 1rem;
+  width: 100%;
+  padding: 1rem 0.75rem 0.5rem 0.75rem;
   border: 1px solid #d1d5db;
-  border-radius: 0.75rem;
-  font-size: 1rem;
+  border-radius: 0.65rem;
   background-color: #fff;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
-  transition: 0.2s ease;
+  font-size: 1rem;
 }
 
 .field-input:focus,
-.textarea:focus,
 .select:focus {
   border-color: #6366f1;
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
   outline: none;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
 }
 
 .field-label {
   position: absolute;
-  top: 0.9rem;
-  left: 1rem;
-  background: white;
+  top: 0.85rem;
+  left: 0.75rem;
+  font-size: 0.9rem;
   color: #6b7280;
-  font-size: 0.95rem;
-  font-weight: 500;
-  padding: 0 0.3rem;
-  transition: all 0.2s ease;
+  background: white;
+  padding: 0 0.25rem;
+  transition: 0.2s ease;
+  pointer-events: none;
 }
 
 .field-input:focus + .field-label,
-.textarea:focus + .field-label,
-.select:valid + .field-label {
+.select:focus + .field-label,
+.field-input:not(:placeholder-shown) + .field-label {
   top: -0.6rem;
-  left: 0.75rem;
   font-size: 0.75rem;
   color: #6366f1;
 }
 
-/* Upload */
-.upload-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.upload-filename {
-  font-size: 0.9rem;
-  color: #374151;
-  font-weight: 500;
-}
-
 .upload-button {
+  display: inline-block;
   background: linear-gradient(to right, #6366f1, #8b5cf6);
   color: white;
-  padding: 0.75rem 1.25rem;
+  padding: 0.6rem 1.2rem;
   border-radius: 0.5rem;
-  cursor: pointer;
   font-weight: 600;
+  cursor: pointer;
+  text-align: center;
   transition: background 0.3s ease;
 }
 
@@ -124,31 +121,34 @@
   background: linear-gradient(to right, #4f46e5, #7c3aed);
 }
 
-/* Submit button */
-.donation-form button {
+.upload-filename {
+  font-size: 0.9rem;
+  color: #374151;
+  margin-top: 0.5rem;
+}
+
+button[type="submit"] {
   background-color: #ef4444;
   color: white;
-  padding: 1rem;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.9rem;
   border: none;
-  border-radius: 0.75rem;
-  font-size: 1.05rem;
-  font-weight: 700;
+  border-radius: 0.5rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-.donation-form button:hover {
+button[type="submit"]:hover {
   background-color: #dc2626;
 }
 
-/* Success & Error */
 .success-msg,
 .error-msg {
   font-weight: 500;
-  text-align: center;
   padding: 0.75rem 1rem;
   border-radius: 0.5rem;
-  font-size: 0.95rem;
+  text-align: center;
 }
 
 .success-msg {
@@ -163,8 +163,7 @@
   border: 1px solid #f87171;
 }
 
-/* Responsive */
-@media (max-width: 900px) {
+@media (max-width: 768px) {
   .submit-request-container {
     flex-direction: column;
   }
@@ -172,58 +171,14 @@
   .submit-request-left,
   .submit-request-right {
     width: 100%;
-    padding: 2rem;
+    padding: 1.5rem;
   }
 
   .form-title {
-    font-size: 1.75rem;
+    font-size: 1.4rem;
   }
-}
 
-.form-field {
-  position: relative;
-  margin-bottom: 1.5rem;
-}
-
-.field-input,
-.textarea,
-.select {
-  width: 100%;
-  padding: 1.2rem 1rem 0.6rem 1rem;
-  border: 1px solid #d1d5db;
-  border-radius: 0.75rem;
-  font-size: 1rem;
-  background-color: #fff;
-  transition: 0.2s ease;
-}
-
-.field-input:focus,
-.textarea:focus,
-.select:focus {
-  border-color: #6366f1;
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
-  outline: none;
-}
-
-.field-label {
-  position: absolute;
-  top: 0.95rem;
-  left: 1rem;
-  background: white;
-  color: #6b7280;
-  font-size: 0.95rem;
-  pointer-events: none;
-  padding: 0 0.3rem;
-  transition: all 0.2s ease;
-}
-
-.field-input:focus + .field-label,
-.textarea:focus + .field-label,
-.select:valid + .field-label,
-.field-input:not(:placeholder-shown) + .field-label,
-.textarea:not(:placeholder-shown) + .field-label {
-  top: -0.6rem;
-  left: 0.75rem;
-  font-size: 0.75rem;
-  color: #6366f1;
+  .donation-form button {
+    width: 100%;
+  }
 }

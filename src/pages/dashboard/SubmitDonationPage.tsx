@@ -1,10 +1,10 @@
 // src/pages/dashboard/SubmitRequestPage.tsx
+
 import React, { useState } from 'react';
 import '../../styles/dashboard/SubmitRequestPage.css';
 import { add_donation_request } from '../../apis/donation_requests_api';
 import { useAuth } from '../../contexts/AuthContext';
 import { uploadDonationImage } from '../../apis/upload_donation_images';
-import { FormField, FileUpload } from '../../components';
 
 const categories = [
   'Food',
@@ -38,7 +38,7 @@ const SubmitRequestPage: React.FC = () => {
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
+    if (e.target.files?.[0]) {
       setSelectedFile(e.target.files[0]);
     }
   };
@@ -48,21 +48,18 @@ const SubmitRequestPage: React.FC = () => {
     setLoading(true);
     setError(null);
     setSuccess(false);
-  
+
     try {
       if (!user?.uid) throw new Error('You must be logged in to submit a request');
-  
       const imageUrl = await uploadDonationImage(selectedFile, user.uid, form.category);
-  
+
       const request = {
         ...form,
         image_url: imageUrl,
         created_by: user.uid,
       };
-  
-      const result = await add_donation_request('donation_requests', request);
-      console.log('✅ Request inserted:', result);
-  
+
+      await add_donation_request('donation_requests', request);
       setSuccess(true);
       setForm({
         title: '',
@@ -73,7 +70,6 @@ const SubmitRequestPage: React.FC = () => {
       });
       setSelectedFile(null);
     } catch (err: any) {
-      console.error('❌ Submission error:', err);
       setError(err.message || 'Something went wrong');
     } finally {
       setLoading(false);
@@ -94,46 +90,56 @@ const SubmitRequestPage: React.FC = () => {
         {error && <p className="error-msg">❌ {error}</p>}
 
         <form onSubmit={handleSubmit} className="donation-form">
-          <FormField
-            name="title"
-            value={form.title}
-            onChange={handleChange}
-            label="Title"
-          />
+          {['title', 'description', 'contact_number', 'contact_email'].map((field) => (
+            <div className="form-field" key={field}>
+              <input
+                type={field === 'contact_email' ? 'email' : 'text'}
+                name={field}
+                placeholder={field.replace('_', ' ').replace(/\b\w/g, (c) => c.toUpperCase())}
+                value={form[field as keyof typeof form]}
+                onChange={handleChange}
+                className="field-input"
+                required={field !== 'contact_email'}
+              />
+              <label className="field-label">
+                {field === 'contact_email'
+                  ? 'Contact Email (optional)'
+                  : field.replace('_', ' ').replace(/\b\w/g, (c) => c.toUpperCase())}
+              </label>
+            </div>
+          ))}
+          <div className="form-field">
+            <select
+              name="category"
+              value={form.category}
+              onChange={handleChange}
+              className="select"
+              aria-label="Category"
+              required
+            >
+              <option value="" disabled hidden>
+                Select a Category
+              </option>
+              {categories.map((c) => (
+                <option key={c} value={c}>
+                  {c}
+                </option>
+              ))}
+            </select>
+            <label className="field-label">Category</label>
+          </div>
 
-          <FormField
-            name="description"
-            value={form.description}
-            onChange={handleChange}
-            label="Description"
-            textarea
-          />
-
-          <FormField
-            name="category"
-            value={form.category}
-            onChange={handleChange}
-            label="Category"
-            select
-            options={categories}
-          />
-
-          <FormField
-            name="contact_number"
-            value={form.contact_number}
-            onChange={handleChange}
-            label="Contact Number"
-          />
-
-          <FormField
-            name="contact_email"
-            value={form.contact_email}
-            onChange={handleChange}
-            label="Contact Email (optional)"
-            type="email"
-          />
-
-          <FileUpload onChange={handleFileChange} fileName={selectedFile?.name} />
+          <div className="form-field">
+            <label className="upload-button">
+              Choose File
+              <input
+                type="file"
+                onChange={handleFileChange}
+                style={{ display: 'none' }}
+              />
+            </label>
+            {selectedFile && <p className="upload-filename">{selectedFile.name}</p>}
+          </div>
 
           <button type="submit" disabled={loading}>
             {loading ? 'Submitting...' : 'Submit Request'}

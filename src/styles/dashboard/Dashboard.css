@@ -1,8 +1,13 @@
+/* src/styles/dashboard/Dashboard.css */
+
 /* === Base Layout === */
 .dashboard {
   display: flex;
   height: 100vh;
   position: relative;
+  overflow-x: hidden; /* Prevents side scroll */
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* === Sidebar (Desktop) === */
@@ -15,6 +20,7 @@
   top: 0;
   z-index: 1000;
   transition: transform 0.3s ease-in-out;
+  overflow-y: auto;
 }
 
 /* === Main Content === */
@@ -23,8 +29,10 @@
   margin-left: 240px;
   padding: 20px;
   overflow-y: auto;
+  overflow-x: hidden;
   background-color: #f9fafb;
   width: calc(100% - 240px);
+  box-sizing: border-box;
 }
 
 /* === Mobile Navbar === */
@@ -44,7 +52,6 @@
   box-sizing: border-box;
 }
 
-/* ✅ Final, flat, minimal hamburger icon */
 .hamburger {
   font-size: 1.25rem;
   background: none;
@@ -102,9 +109,14 @@
   }
 
   .content {
-    margin-left: 0;
-    padding-top: 56px;
-    width: 100%;
+    margin-left: 0 !important;
+    width: 100% !important;
+    padding: 56px 1rem 1rem 1rem;
+    overflow-x: hidden;
+  }
+
+  .dashboard {
+    flex-direction: column;
   }
 
   .mobile-navbar {
