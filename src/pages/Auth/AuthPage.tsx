@@ -1,27 +1,36 @@
 // src/pages/Auth/AuthPage.tsx
 
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import AuthLayout from './AuthLayout';
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
 import { useAuth } from '../../contexts/AuthContext';
 import { Navigate } from 'react-router-dom';
 
+
+const ADMINS = (import.meta.env.ADMINS || '')
+    .split(',')
+    .map((email: string) => email.trim());
+
 const AuthPage: React.FC = () => {
-    const [isLogin, setIsLogin] = useState(true);
-    const { isAuthenticated } = useAuth();
+  const [isLogin, setIsLogin] = useState(true);
+  const { isAuthenticated, user } = useAuth();
 
-    if (isAuthenticated) return <Navigate to ="/dashboard" />;
+  if (isAuthenticated) {
+    const isAdmin = user?.email && ADMINS.includes(user.email);
+    console.log(isAdmin);
+    return <Navigate to={isAdmin ? '/admin' : '/dashboard'} />;
+  }
 
-    return (
-        <AuthLayout>
-            {isLogin ? (
-                <LoginForm switchToRegister={() => setIsLogin(false)} />
-            ) : (
-                <RegisterForm switchToLogin={() => setIsLogin(true)} />
-            )}
-        </AuthLayout>
-    );
+  return (
+    <AuthLayout>
+      {isLogin ? (
+        <LoginForm switchToRegister={() => setIsLogin(false)} />
+      ) : (
+        <RegisterForm switchToLogin={() => setIsLogin(true)} />
+      )}
+    </AuthLayout>
+  );
 };
 
 export default AuthPage;

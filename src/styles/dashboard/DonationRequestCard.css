@@ -51,3 +51,33 @@
   color: #16a34a; /* green-600 */
   font-weight: bold;
 }
+
+@media (max-width: 600px) {
+  .donation-card {
+    padding: 0.75rem;
+    border-radius: 10px;
+    gap: 0.4rem;
+  }
+
+  .card-image {
+    max-height: 150px;
+    border-radius: 6px;
+  }
+
+  .donation-card h3 {
+    font-size: 1rem;
+  }
+
+  .donation-card p {
+    font-size: 0.85rem;
+  }
+
+  .fulfill-btn {
+    font-size: 0.85rem;
+    padding: 0.45rem 0.9rem;
+  }
+
+  .fulfilled-status {
+    font-size: 0.85rem;
+  }
+}
