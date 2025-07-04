@@ -7,7 +7,7 @@ import { ProtectedRoute } from '.';
 const DashboardRoutes = (
   <Route element={<ProtectedRoute><DashboardLayout /></ProtectedRoute>}>
     <Route index element={<HomePage />} />
-    <Route path="submit" element={<SubmitDonationPage />} />
+    <Route path="submit-donation" element={<SubmitDonationPage />} />
     <Route path="my-requests" element={<MyRequestsPage />} />
     <Route path="settings" element={<SettingsPage/>}/>
   </Route>
