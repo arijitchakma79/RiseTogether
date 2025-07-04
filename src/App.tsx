@@ -2,8 +2,15 @@
 
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import {AuthPage, AdminPanel} from './pages';
-import {  AdminRoute } from './routes';
+import {
+  AuthPage,
+  AdminPanel,
+  LandingPage,
+  AboutPage,
+  TeamPage,
+  ContactPage
+} from './pages';
+import { AdminRoute } from './routes';
 import DashboardLayout from './layout/DashboardLayout';
 import DashboardRoutes from './routes/DashboardRoutes';
 import './styles/App.css';
@@ -12,6 +19,10 @@ const App: React.FC = () => {
   return (
     <Router>
       <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/team" element={<TeamPage />} />
+        <Route path="/contact" element={<ContactPage />} />
         <Route path="/auth" element={<AuthPage />} />
 
         <Route path="/dashboard/*" element={<DashboardLayout />}>
@@ -24,7 +35,7 @@ const App: React.FC = () => {
           </AdminRoute>
         } />
 
-        <Route path="*" element={<Navigate to="/auth" />} />
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>
   );

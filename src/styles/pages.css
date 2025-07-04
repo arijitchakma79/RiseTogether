@@ -1,0 +1,21 @@
+.page-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-content {
+  flex: 1;
+  padding-top: 70px; /* Height of navbar */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ensure components take full height of page content */
+.page-content > div {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem 0;
+} 
