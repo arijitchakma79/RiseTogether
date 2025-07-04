@@ -28,9 +28,9 @@ const Contact: React.FC = () => {
       <div className="contact-content">
         <div className="contact-info">
           <h3>Get in Touch</h3>
-          <p>📧 Email: contact@risetogether.org</p>
-          <p>📞 Phone: (555) 123-4567</p>
-          <p>📍 Location: City, Country</p>
+          <p>📧 Email: risetogether-cht@gmail.com</p>
+          <p>📞 Phone: +8801739353500</p>
+          <p>📍 Location: Rangamati, Chittagong Hill Tracts, Bangladesh</p>
         </div>
         <form className="contact-form" onSubmit={handleSubmit}>
           <input

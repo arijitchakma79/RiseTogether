@@ -3,10 +3,10 @@ import '../../styles/landing/Team.css';
 
 const Team: React.FC = () => {
   const teamMembers = [
-    { name: 'Team Member 1', position: 'Founder & CEO' },
-    { name: 'Team Member 2', position: 'Operations Director' },
-    { name: 'Team Member 3', position: 'Community Manager' },
-    { name: 'Team Member 4', position: 'Tech Lead' }
+    { name: 'Prodip Chakma', position: 'Co-Founder' },
+    { name: 'Saprativ Chakma', position: 'Co-Founder' },
+    { name: 'Ariji Chakma', position: 'Technical Advisor' },
+    { name: 'Tusher Subro Chakma', position: 'Technical Coordinator / Web Developer' }
   ];
 
   return (
