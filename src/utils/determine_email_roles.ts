@@ -1,9 +1,9 @@
 import { Role } from "../contexts/authTypes";
 
-const adminEmails = import.meta.env.ADMINS?.split(',') || [];
+const adminEmails = import.meta.env.VITE_ADMINS?.split(',') || [];
 
 const determineRoleFromEmail = (email: string): Role => {
-  return adminEmails.includes(email) ? 'admin' : 'user';
+  return adminEmails.includes(email.trim()) ? 'admin' : 'user';
 };
 
 export default determineRoleFromEmail;

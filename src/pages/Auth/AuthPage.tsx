@@ -6,12 +6,10 @@ import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
 import { useAuth } from '../../contexts/AuthContext';
 import { Navigate } from 'react-router-dom';
+import determineRoleFromEmail from '../../utils/determine_email_roles';
 
 
-const ADMINS = (import.meta.env.ADMINS || '')
-    .split(',')
-    .map((email: string) => email.trim());
-
+const ADMINS = import.meta.env.VITE_ADMINS?.split(',') || [];
 const AuthPage: React.FC = () => {
   const [isLogin, setIsLogin] = useState(true);
   const { isAuthenticated, user } = useAuth();
