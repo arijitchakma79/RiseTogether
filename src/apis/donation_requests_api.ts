@@ -153,3 +153,18 @@ export const update_donation_request = async (
     throw new Error(error.message || 'Failed to update donation request');
   }
 };
+
+export const filter_donation_requests_by_title = async (
+  table_name: string,
+  searchQuery: string
+) => {
+  const { data, error } = await supabase
+    .from(table_name)
+    .select()
+    .ilike('title', `%${searchQuery}%`)
+    .order('created_at', { ascending: false });
+
+  if (error) throw error;
+
+  return { success: true, data };
+};
