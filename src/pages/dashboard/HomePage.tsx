@@ -14,6 +14,23 @@ import '../../styles/dashboard/HomePage.css';
 
 const ITEMS_PER_PAGE = 8;
 
+// Define available categories
+const CATEGORIES = [
+  'Clothing',
+  'Food',
+  'Education',
+  'Medical',
+  'Shelter',
+  'Other'
+];
+
+// Define sort options
+const SORT_OPTIONS = [
+  { value: 'newest', label: 'Newest First' },
+  { value: 'oldest', label: 'Oldest First' },
+  { value: 'urgent', label: 'Most Urgent' }
+];
+
 const HomePage: React.FC = () => {
   const { user } = useAuth();
   const [requests, setRequests] = useState<any[]>([]);
@@ -22,7 +39,9 @@ const HomePage: React.FC = () => {
   const [filterCategory, setFilterCategory] = useState('');
   const [filterDates, setFilterDates] = useState({ from: '', to: '' });
   const [filterStatus, setFilterStatus] = useState('');
-  const [selectedRequest, setSelectedRequest] = useState<any | null>(null); // for popup form
+  const [sortBy, setSortBy] = useState('newest');
+  const [selectedRequest, setSelectedRequest] = useState<any | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     if (user) fetchRequests();
@@ -30,7 +49,7 @@ const HomePage: React.FC = () => {
 
   useEffect(() => {
     applyFilters();
-  }, [requests, filterCategory, filterDates, filterStatus]);
+  }, [requests, filterCategory, filterDates, filterStatus, sortBy, searchQuery]);
 
   const fetchRequests = async () => {
     try {
@@ -53,10 +72,22 @@ const HomePage: React.FC = () => {
   const applyFilters = () => {
     let filteredData = [...requests];
 
+    // Apply search filter
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      filteredData = filteredData.filter(req => 
+        req.title?.toLowerCase().includes(query) ||
+        req.description?.toLowerCase().includes(query) ||
+        req.category?.toLowerCase().includes(query)
+      );
+    }
+
+    // Apply category filter
     if (filterCategory) {
       filteredData = filteredData.filter(req => req.category === filterCategory);
     }
 
+    // Apply date filter
     if (filterDates.from && filterDates.to) {
       filteredData = filteredData.filter(req => {
         const createdAt = new Date(req.created_at);
@@ -64,9 +95,25 @@ const HomePage: React.FC = () => {
       });
     }
 
+    // Apply status filter
     if (filterStatus) {
       filteredData = filteredData.filter(req => req.status === filterStatus);
     }
+
+    // Apply sorting
+    filteredData.sort((a, b) => {
+      switch (sortBy) {
+        case 'newest':
+          return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+        case 'oldest':
+          return new Date(a.created_at).getTime() - new Date(b.created_at).getTime();
+        case 'urgent':
+          // Assuming there's an urgency field, modify as needed
+          return (b.urgency || 0) - (a.urgency || 0);
+        default:
+          return 0;
+      }
+    });
 
     setFiltered(filteredData);
     setCurrentPage(1);
@@ -80,7 +127,15 @@ const HomePage: React.FC = () => {
   }) => {
     console.log('User is interested in request:', selectedRequest);
     console.log('Form data submitted:', formData);
-    setSelectedRequest(null); // close popup
+    setSelectedRequest(null);
+  };
+
+  const handleClearFilters = () => {
+    setFilterCategory('');
+    setFilterDates({ from: '', to: '' });
+    setFilterStatus('');
+    setSortBy('newest');
+    setSearchQuery('');
   };
 
   const paginated = filtered.slice(
@@ -90,16 +145,62 @@ const HomePage: React.FC = () => {
 
   return (
     <div className="home-page-container">
-      {user?.role === 'admin' && (
-        <DonationFilter
-          category={filterCategory}
-          onCategoryChange={setFilterCategory}
-          dateRange={filterDates}
-          onDateRangeChange={setFilterDates}
-          status={filterStatus}
-          onStatusChange={setFilterStatus}
-        />
-      )}
+      <div className="filter-section">
+        <div className="search-bar">
+          <input
+            type="text"
+            placeholder="Search donations..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="search-input"
+          />
+        </div>
+
+        <div className="filter-controls">
+          <select
+            value={filterCategory}
+            onChange={(e) => setFilterCategory(e.target.value)}
+            className="filter-select"
+            aria-label="Filter by category"
+          >
+            <option value="">All Categories</option>
+            {CATEGORIES.map(category => (
+              <option key={category} value={category}>{category}</option>
+            ))}
+          </select>
+
+          <select
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value)}
+            className="filter-select"
+            aria-label="Sort donations"
+          >
+            {SORT_OPTIONS.map(option => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+
+          {user?.role === 'admin' && (
+            <DonationFilter
+              category={filterCategory}
+              onCategoryChange={setFilterCategory}
+              dateRange={filterDates}
+              onDateRangeChange={setFilterDates}
+              status={filterStatus}
+              onStatusChange={setFilterStatus}
+            />
+          )}
+
+          <button 
+            onClick={handleClearFilters}
+            className="clear-filters-btn"
+          >
+            Clear Filters
+          </button>
+        </div>
+      </div>
 
       <div className="request-grid">
         {paginated.length > 0 ? (
