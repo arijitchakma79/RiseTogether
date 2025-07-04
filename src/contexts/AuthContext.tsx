@@ -9,6 +9,7 @@ import React, {
   } from 'react';
   import { AuthContextType, Role, User } from './authTypes';
   import { login_user, create_user, logout_user } from '../apis/auth';
+  import determineRoleFromEmail from '../utils/determine_email_roles';
   import supabase from '../supabase/supabaseClient';
   
   const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -30,7 +31,7 @@ import React, {
           setUser({
             email: sessionUser.email!,
             uid: sessionUser.id,
-            role: metadata.userRole || 'user',
+            role: determineRoleFromEmail(sessionUser.email!),
             fullName: metadata.fullName || '',
             displayName: metadata.displayName || '',
             
@@ -52,7 +53,7 @@ import React, {
           setUser({
             email: sessionUser.email!,
             uid: sessionUser.id,
-            role: metadata.userRole || 'user',
+            role: determineRoleFromEmail(sessionUser.email!),
             fullName: metadata.fullName || '',
             displayName: metadata.displayName || '',
           });
@@ -83,7 +84,7 @@ import React, {
       setUser({
         email: sessionUser.email!,
         uid: sessionUser.id,
-        role: metadata.userRole as Role || 'user',
+        role: determineRoleFromEmail(sessionUser.email!),
         fullName: metadata.fullName || '',
         displayName: metadata.displayName || '',
       });
