@@ -22,15 +22,30 @@ export const get_all_donation_request = async(table_name : string) =>  {
     return {success: true, data};
 }
 
-export const add_donation_request = async(table_name:string, request: DonationRequest) => {
-    const {error} = await supabase.from(table_name).insert(request);
+export const add_donation_request = async (table_name: string, request: DonationRequest) => {
+  const { error } = await supabase.from(table_name).insert({
+    ...request,
+    status: 'pending'
+  });
 
-    if (error) {
-        throw error;
-    }
+  if (error) {
+    throw error;
+  }
 
-    return {success: true}
-}
+  return { success: true };
+};
+
+export const get_fulfilled_donation_requests = async (table_name: string) => {
+  const { data, error } = await supabase
+    .from(table_name)
+    .select()
+    .eq('status', 'fulfilled')
+    .order('created_at', { ascending: false });
+
+  if (error) throw error;
+
+  return { success: true, data };
+};
 
 export const upsert_donation_request = async(table_name:string, request: DonationRequest, uid:string) => {
     const {error} = await supabase.from(table_name).upsert(request).eq('id', uid );
@@ -117,3 +132,24 @@ export const fulfill_donation_request = async (
   
     return { success: true };
   };
+
+export const update_donation_request = async (
+  tableName: string,
+  requestId: string,
+  updates: { status?: string; fulfilled_by?: string }
+) => {
+  try {
+    const response = await supabase
+      .from(tableName)
+      .update(updates)
+      .eq('id', requestId);
+    
+    if (response.error) {
+      throw new Error(response.error.message);
+    }
+    
+    return { success: true, data: response.data };
+  } catch (error: any) {
+    throw new Error(error.message || 'Failed to update donation request');
+  }
+};

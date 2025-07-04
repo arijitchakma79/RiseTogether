@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {
   get_all_donation_request,
-  fulfill_donation_request
+  get_fulfilled_donation_requests,
 } from '../../apis/donation_requests_api';
 import {
   DonationFilter,
@@ -25,8 +25,8 @@ const HomePage: React.FC = () => {
   const [selectedRequest, setSelectedRequest] = useState<any | null>(null); // for popup form
 
   useEffect(() => {
-    fetchRequests();
-  }, []);
+    if (user) fetchRequests();
+  }, [user]);
 
   useEffect(() => {
     applyFilters();
@@ -34,7 +34,16 @@ const HomePage: React.FC = () => {
 
   const fetchRequests = async () => {
     try {
-      const { data } = await get_all_donation_request('donation_requests');
+      let data;
+  
+      if (user?.role === 'admin') {
+        const response = await get_all_donation_request('donation_requests');
+        data = response.data;
+      } else {
+        const response = await get_fulfilled_donation_requests('donation_requests');
+        data = response.data;
+      }
+  
       setRequests(data);
     } catch (error) {
       console.error('Failed to fetch donation requests:', error);
@@ -81,14 +90,16 @@ const HomePage: React.FC = () => {
 
   return (
     <div className="home-page-container">
-      <DonationFilter
-        category={filterCategory}
-        onCategoryChange={setFilterCategory}
-        dateRange={filterDates}
-        onDateRangeChange={setFilterDates}
-        status={filterStatus}
-        onStatusChange={setFilterStatus}
-      />
+      {user?.role === 'admin' && (
+        <DonationFilter
+          category={filterCategory}
+          onCategoryChange={setFilterCategory}
+          dateRange={filterDates}
+          onDateRangeChange={setFilterDates}
+          status={filterStatus}
+          onStatusChange={setFilterStatus}
+        />
+      )}
 
       <div className="request-grid">
         {paginated.length > 0 ? (

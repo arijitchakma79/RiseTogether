@@ -6,7 +6,6 @@ import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
 import { useAuth } from '../../contexts/AuthContext';
 import { Navigate } from 'react-router-dom';
-import determineRoleFromEmail from '../../utils/determine_email_roles';
 
 
 const ADMINS = import.meta.env.VITE_ADMINS?.split(',') || [];

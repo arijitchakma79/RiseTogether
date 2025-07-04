@@ -114,7 +114,8 @@ const SubmitRequestPage: React.FC = () => {
               value={form.category}
               onChange={handleChange}
               className="select"
-              aria-label="Category"
+              aria-label="Select donation category"
+              title="Select donation category"
               required
             >
               <option value="" disabled hidden>
