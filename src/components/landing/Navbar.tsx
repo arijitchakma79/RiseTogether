@@ -6,16 +6,16 @@ const Navbar: React.FC = () => {
   return (
     <nav className="landing-nav">
       <div className="nav-logo">
-        <h1>🌱 RiseTogether</h1>
+        <Link to="/">🌱 RiseTogether</Link>
       </div>
       <div className="nav-links">
-                  <div className="nav-items">
-            <Link to="/about">About Us</Link>
-            <Link to="/team">Our Team</Link>
-            <Link to="/contact">Contact</Link>
-            <Link to="/auth" className="donate-button">Donate Now</Link>
-          </div>
+        <div className="nav-items">
+          <Link to="/about">About Us</Link>
+          <Link to="/team">Our Team</Link>
+          <Link to="/contact">Contact</Link>
+        </div>
       </div>
+      <Link to="/auth" className="donate-button">Donate Now</Link>
     </nav>
   );
 };
