@@ -4,12 +4,40 @@
   margin: 0 auto;
   padding: 2rem;
   font-family: 'Inter', sans-serif;
+  height: calc(100vh - 4rem);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Custom scrollbar styles */
+.admin-panel::-webkit-scrollbar {
+  width: 8px;
+}
+
+.admin-panel::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.admin-panel::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.admin-panel::-webkit-scrollbar-thumb:hover {
+  background: #666;
 }
 
 .admin-header {
   margin-bottom: 2rem;
   padding-bottom: 1rem;
   border-bottom: 2px solid #e5e7eb;
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 10;
+  padding-top: 1rem;
 }
 
 .admin-header-content {
@@ -89,6 +117,7 @@
 /* Statistics Section */
 .stats-section {
   margin-bottom: 3rem;
+  flex-shrink: 0;
 }
 
 .stats-section h2 {
@@ -146,6 +175,12 @@
 /* Filters Section */
 .filters-section {
   margin-bottom: 3rem;
+  flex-shrink: 0;
+  position: sticky;
+  top: 120px;
+  background: white;
+  z-index: 9;
+  padding: 1rem 0;
 }
 
 .filters-section h2 {
@@ -157,6 +192,7 @@
 /* Requests Section */
 .requests-section {
   margin-bottom: 2rem;
+  flex: 1;
 }
 
 .requests-section h2 {
