@@ -11,8 +11,12 @@ type DonationRequest = {
   };
 
 export const get_all_donation_request = async(table_name : string) =>  {
-    const {data, error} = await supabase.from(table_name).select().order('created_at', { ascending: false });
-    if (error) 
+    const {data, error} = await supabase.from(
+      table_name).
+      select().
+      order('created_at', { ascending: false });
+    
+      if (error) 
         throw error;
     
     return {success: true, data};
