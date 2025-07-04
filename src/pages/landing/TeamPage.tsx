@@ -1,6 +1,5 @@
 import React from 'react';
-import { Team } from '../components/landing';
-import { Navbar, Footer } from '../components/landing';
+import { Team, Navbar, Footer } from '../../components';
 
 const TeamPage: React.FC = () => {
   return (

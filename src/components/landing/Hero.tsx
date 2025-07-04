@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './styles/Hero.css';
+import '../../styles/landing/Hero.css';
 
 const Hero: React.FC = () => {
   return (

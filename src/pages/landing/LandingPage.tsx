@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navbar, Hero, About, Team, Contact, Footer } from '../components/landing';
+import { Navbar, Hero,  Footer } from '../../components';
 
 const LandingPage: React.FC = () => {
   return (

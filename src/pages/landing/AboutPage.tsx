@@ -1,6 +1,5 @@
 import React from 'react';
-import { About } from '../components/landing';
-import { Navbar, Footer } from '../components/landing';
+import { About, Navbar, Footer } from '../../components';
 
 const AboutPage: React.FC = () => {
   return (

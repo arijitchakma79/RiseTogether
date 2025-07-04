@@ -1,6 +1,5 @@
 import React from 'react';
-import { Contact } from '../components/landing';
-import { Navbar, Footer } from '../components/landing';
+import { Contact, Navbar, Footer } from '../../components';
 
 const ContactPage: React.FC = () => {
   return (
