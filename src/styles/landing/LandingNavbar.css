@@ -1,0 +1,97 @@
+/* General Navbar Container */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    height: 70px;
+    background-color: #e6e2e2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  /* Brand Logo */
+  .navbar-logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #333333;
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    transition: color 0.2s ease;
+  }
+  
+  .navbar-logo:hover {
+    color: #f0c040;
+  }
+  
+  /* Navigation Links */
+  .navbar-right {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .navbar-right li a {
+    color: #444444;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 10px 16px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+  }
+  
+  .navbar-right li a:hover,
+  .navbar-right li.active a {
+    color: #ffffff;
+    background-color: #555;
+  }
+  
+  /* Donate Button */
+  .donate-btn {
+    background: linear-gradient(135deg, #ff6b6b, #ff4d4d);
+    padding: 10px 20px;
+    color: #fff !important;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 8px rgba(255, 107, 107, 0.3);
+  }
+  
+  .donate-btn:hover {
+    background: linear-gradient(135deg, #ff4d4d, #e63946);
+    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.5);
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .navbar {
+      padding: 0 1rem;
+    }
+  
+    .navbar-right {
+      gap: 1rem;
+    }
+  
+    .navbar-logo {
+      font-size: 1.5rem;
+    }
+  
+    .navbar-right li a,
+    .donate-btn {
+      font-size: 1rem;
+      padding: 8px 14px;
+    }
+  }
+  

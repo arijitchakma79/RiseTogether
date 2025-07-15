@@ -1,16 +1,12 @@
 import React from 'react';
-import { About, Navbar, Footer } from '../../components';
 
 const AboutPage: React.FC = () => {
   return (
-    <div className="page-container">
-      <Navbar />
-      <div className="page-content">
-        <About />
-      </div>
-      <Footer />
+    <div>
+      <h1>About Us</h1>
+      <p>Learn more about our mission, vision, and values.</p>
     </div>
   );
 };
 
-export default AboutPage; 
+export default AboutPage;

@@ -1,14 +1,12 @@
 import React from 'react';
-import { Navbar, Hero,  Footer } from '../../components';
 
 const LandingPage: React.FC = () => {
   return (
-    <div className="landing-page">
-      <Navbar />
-      <Hero />
-      <Footer />
+    <div>
+      <h1>Welcome to the Landing Page</h1>
+      <p>This is the home page of the website.</p>
     </div>
   );
 };
 
-export default LandingPage; 
+export default LandingPage;
