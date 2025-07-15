@@ -1,11 +1,16 @@
 import React from 'react';
+import '../../styles/landing/LadingPage.css';
 
 const LandingPage: React.FC = () => {
   return (
-    <div>
-      <h1>Welcome to the Landing Page</h1>
-      <p>This is the home page of the website.</p>
-    </div>
+    <section className="landing-container">
+      <div className="landing-content">
+        <h1 className="site-name">RiseTogether</h1>
+        <p className="typewriter">
+          Uplift Lives. Share Hope. Rise Together.
+        </p>
+      </div>
+    </section>
   );
 };
 

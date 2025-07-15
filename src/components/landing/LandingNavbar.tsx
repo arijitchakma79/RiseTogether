@@ -26,7 +26,7 @@ const LandingNavbar: React.FC = () => {
 
       <div className="navbar-left">
         <Link to="/" className="navbar-logo" onClick={closeMenu}>
-          Hive
+          RiseTogether
         </Link>
       </div>
 
