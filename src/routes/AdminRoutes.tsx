@@ -10,7 +10,7 @@ type AdminRouteProps = {
 
 const AdminRoute: React.FC<AdminRouteProps> = ({ children }) => {
   const { isAuthenticated, user, isLoading } = useAuth();
-  console.log(user);
+
 
   if (isLoading) return <div>Loading...</div>;
 

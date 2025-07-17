@@ -1,14 +1,17 @@
 import React from 'react';
-import { Navbar, Hero,  Footer } from '../../components';
+import '../../styles/landing/LadingPage.css';
 
 const LandingPage: React.FC = () => {
   return (
-    <div className="landing-page">
-      <Navbar />
-      <Hero />
-      <Footer />
-    </div>
+    <section className="landing-container">
+      <div className="landing-content">
+        <h1 className="site-name">RiseTogether</h1>
+        <p className="typewriter">
+          Uplift Lives. Share Hope. Rise Together.
+        </p>
+      </div>
+    </section>
   );
 };
 
-export default LandingPage; 
+export default LandingPage;

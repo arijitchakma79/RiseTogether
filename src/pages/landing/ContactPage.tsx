@@ -1,16 +1,12 @@
 import React from 'react';
-import { Contact, Navbar, Footer } from '../../components';
 
 const ContactPage: React.FC = () => {
   return (
-    <div className="page-container">
-      <Navbar />
-      <div className="page-content">
-        <Contact />
-      </div>
-      <Footer />
+    <div>
+      <h1>Contact Us</h1>
+      <p>Feel free to reach out for any inquiries.</p>
     </div>
   );
 };
 
-export default ContactPage; 
+export default ContactPage;

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { SidebarNav } from '../components';
+import MobileSidebar from '../components/dashboard/MobileSidebar';
 import '../styles/dashboard/Dashboard.css';
 
 const DashboardLayout: React.FC = () => {
@@ -19,11 +20,13 @@ const DashboardLayout: React.FC = () => {
         <h1 className="mobile-title">RiseTogether</h1>
       </div>
 
-      {/* === Sidebar Navigation === */}
-      <SidebarNav isMobileMenuOpen={isMobileMenuOpen} onClose={closeMobileMenu} />
+      {/* === Desktop Sidebar === */}
+      <div className="desktop-only">
+        <SidebarNav />
+      </div>
 
-      {/* === Mobile Overlay === */}
-      {isMobileMenuOpen && <div className="overlay show" onClick={closeMobileMenu}></div>}
+      {/* === Mobile Sidebar === */}
+      <MobileSidebar isOpen={isMobileMenuOpen} onClose={closeMobileMenu} />
 
       {/* === Main Content Area === */}
       <main className="content">

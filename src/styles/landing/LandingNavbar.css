@@ -1,0 +1,191 @@
+/* Navbar container */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  background-color: #e6e2e2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+  z-index: 1000;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Logo */
+.navbar-logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #333;
+  text-decoration: none;
+}
+
+.navbar-logo:hover {
+  color: #f0c040;
+}
+
+/* Desktop links */
+.navbar-right {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+  z-index: 1100;
+}
+
+.navbar-right li a {
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #444;
+  padding: 10px 16px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.navbar-right li a:hover,
+.navbar-right li.active a {
+  background-color: #555;
+  color: #fff;
+}
+
+/* Active route indicator */
+.navbar-right li.active a {
+  color: #e63946;
+  background-color: transparent;
+  border-bottom: 2px solid #e63946;
+}
+
+/* Donate button */
+.donate-btn {
+  background: linear-gradient(135deg, #ff6b6b, #ff4d4d);
+  color: #fff !important;
+  font-weight: bold;
+  padding: 10px 20px;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 8px rgba(255, 107, 107, 0.3);
+}
+
+.donate-btn:hover {
+  background: linear-gradient(135deg, #ff4d4d, #e63946);
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.5);
+}
+
+/* Hamburger icon */
+.hamburger {
+  display: none;
+  cursor: pointer;
+  z-index: 1150;
+}
+
+/* Mobile overlay */
+.mobile-overlay {
+  position: fixed;
+  top: 70px;
+  left: 0;
+  width: 100%;
+  height: calc(100% - 70px);
+  background-color: rgba(0, 0, 0, 0.4);
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+  z-index: 1050;
+  display: none;
+}
+
+.mobile-overlay.show {
+  display: block;
+}
+
+/* Responsive behavior */
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+
+  .navbar-right {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background-color: #f9f6f6;
+    flex-direction: column;
+    align-items: center;
+    padding: 3rem 1rem 2rem;
+    gap: 1.5rem;
+    display: none;
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+  }
+
+  .navbar-right.open {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .navbar-right li {
+    width: 100%;
+    text-align: center;
+  }
+
+  .navbar-right li a {
+    font-size: 1.2rem;
+    padding: 12px 0;
+    border-radius: 6px;
+    display: block;
+    width: 100%;
+    transition: background-color 0.3s ease;
+  }
+
+  .navbar-right li a:hover,
+  .navbar-right li.active a {
+    background-color: #444;
+    color: #fff;
+  }
+
+  .donate-btn {
+    width: 100%;
+    font-size: 1.2rem;
+    padding: 12px 0;
+    text-align: center;
+    border-radius: 6px;
+    box-shadow: 0 3px 8px rgba(255, 107, 107, 0.3);
+  }
+
+  .donate-btn:hover {
+    background: linear-gradient(135deg, #ff4d4d, #e63946);
+    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.5);
+  }
+}
+
+/* Force rules on large screens */
+@media (min-width: 769px) {
+  .hamburger {
+    display: none !important;
+  }
+
+  .navbar-right {
+    display: flex !important;
+    position: static;
+    flex-direction: row;
+    align-items: center;
+    width: auto;
+    background-color: transparent;
+    box-shadow: none;
+    padding: 0;
+  }
+}
