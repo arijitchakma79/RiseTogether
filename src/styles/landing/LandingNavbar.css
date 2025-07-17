@@ -53,6 +53,13 @@
   color: #fff;
 }
 
+/* Active route indicator */
+.navbar-right li.active a {
+  color: #e63946;
+  background-color: transparent;
+  border-bottom: 2px solid #e63946;
+}
+
 /* Donate button */
 .donate-btn {
   background: linear-gradient(135deg, #ff6b6b, #ff4d4d);
@@ -114,6 +121,9 @@
     padding: 3rem 1rem 2rem;
     gap: 1.5rem;
     display: none;
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
     transition: all 0.3s ease;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     border-bottom-left-radius: 12px;
@@ -122,6 +132,9 @@
 
   .navbar-right.open {
     display: flex;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
   }
 
   .navbar-right li {

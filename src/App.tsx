@@ -19,30 +19,28 @@ import { LandingNavbar } from './components';
 const App: React.FC = () => {
   return (
     <Router>
-      <LandingNavbar />
-      <div className="page-content"> 
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/team" element={<TeamPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/auth" element={<AuthPage />} />
-
-          <Route path="/dashboard/*" element={<DashboardLayout />}>
-            {DashboardRoutes.props.children}
-          </Route>
-
-          <Route path="/admin" element={
-            <AdminRoute>
-              <AdminPanel />
-            </AdminRoute>
-          } />
-
-          <Route path="*" element={<Navigate to="/" />} />
-        </Routes>
+      <div className="app-wrapper">
+        <LandingNavbar />
+        <div className="page-content">
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/team" element={<TeamPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/auth" element={<AuthPage />} />
+            <Route path="/dashboard/*" element={<DashboardLayout />}>
+              {DashboardRoutes.props.children}
+            </Route>
+            <Route path="/admin" element={
+              <AdminRoute>
+                <AdminPanel />
+              </AdminRoute>
+            } />
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
+        </div>
       </div>
     </Router>
   );
 };
-
 export default App;

@@ -7,16 +7,36 @@ const LandingNavbar: React.FC = () => {
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-  const closeMenu = () => setIsMenuOpen(false);
+  const toggleMenu = () => {
+    setIsMenuOpen(prev => {
+      const next = !prev;
+      document.body.style.overflow = next ? 'hidden' : 'auto';
+      return next;
+    });
+  };
 
-  // Lock scroll when menu is open
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+    document.body.style.overflow = 'auto';
+  };
+
+  // Auto close menu on route change
   useEffect(() => {
-    document.body.style.overflow = isMenuOpen ? 'hidden' : 'auto';
-    return () => {
-      document.body.style.overflow = 'auto';
+    closeMenu();
+  }, [location.pathname]);
+
+  // Handle window resize to disable mobile menu if too wide
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 768) {
+        closeMenu();
+      }
     };
-  }, [isMenuOpen]);
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   return (
     <nav className="navbar">
