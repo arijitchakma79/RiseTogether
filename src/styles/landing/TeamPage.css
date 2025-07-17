@@ -1,55 +1,78 @@
-.team-container {
-    padding: 4rem 2rem;
-    background-color: #f9f9f9;
-    min-height: 100vh;
-    text-align: center;
-  }
-  
-  .team-title {
-    font-size: 2.8rem;
-    font-weight: 700;
-    margin-bottom: 3rem;
-    color: #222;
-  }
-  
-  .team-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 2rem;
-    justify-items: center;
-    align-items: start;
-  }
-  
-  .team-card {
-    background: white;
-    padding: 1.5rem;
-    border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-    transition: transform 0.3s ease;
-    max-width: 280px;
-  }
-  
-  .team-card:hover {
-    transform: translateY(-5px);
-  }
-  
-  .team-image {
-    width: 100%;
-    height: 260px;
-    object-fit: cover;
-    border-radius: 10px;
-    margin-bottom: 1rem;
-  }
-  
-  .team-name {
-    font-size: 1.4rem;
-    font-weight: 600;
-    color: #333;
-    margin: 0.5rem 0 0.2rem;
-  }
-  
-  .team-role {
-    font-size: 1rem;
-    color: #777;
-  }
-  
+.team-wrapper {
+  padding: 4rem 2rem;
+  max-width: 100%;
+  background-color: #f4f6f9;
+  min-height: 100vh;
+}
+
+.team-title {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 3rem;
+  color: #222;
+  font-weight: bold;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  width: 100%;
+}
+
+.team-card {
+  background-color: #fff;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.team-card:hover {
+  transform: translateY(-5px);
+}
+
+.team-photo {
+  width: 100%;
+  max-height: 220px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 1.2rem;
+}
+
+.team-card h2 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+
+.team-role {
+  color: #666;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.team-bio {
+  font-size: 0.95rem;
+  color: #444;
+  margin-bottom: 1rem;
+  min-height: 60px;
+}
+
+.team-links {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.team-links a {
+  color: #0077b5;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.team-links a:hover {
+  color: #005582;
+}
