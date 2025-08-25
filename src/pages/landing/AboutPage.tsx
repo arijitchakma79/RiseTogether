@@ -4,15 +4,19 @@ import '../../styles/landing/AboutPage.css';
 const images = [
   {
     src: '/src/assets/images/about1.jpg',
-    caption: 'Community Unity Festival',
+    caption: 'Colloborations with NGOs',
   },
   {
-    src: '/src/assets/images/about1.jpg',
-    caption: 'Free Family Portrait Day',
+    src: '/src/assets/images/about2.jpg',
+    caption: 'Educational Seminars',
   },
   {
-    src: '/src/assets/images/about1.jpg',
-    caption: 'Youth Empowerment Workshop',
+    src: '/src/assets/images/about3.jpg',
+    caption: 'Donation Drives',
+  },
+  {
+    src: '/src/assets/images/about4.png',
+    caption: 'Seminar on Hygiene',
   },
 ];
 
@@ -133,7 +137,7 @@ const AboutPage: React.FC = () => {
           "We rise by lifting others."
         </blockquote>
         <p style={{fontSize: '1.1rem', color: '#555', marginBottom: '1.5rem'}}>Join us in making a difference in the Chittagong Hill Tracts. Every act of kindness counts.</p>
-        <a href="/" style={{
+        <a href="http://localhost:5173/auth" style={{
           display: 'inline-block',
           background: 'linear-gradient(90deg, #ff4d4d, #3a3a7c)',
           color: '#fff',
@@ -149,6 +153,9 @@ const AboutPage: React.FC = () => {
         onMouseOut={e => (e.currentTarget.style.background = 'linear-gradient(90deg, #ff4d4d, #3a3a7c)')}
         >Get Involved</a>
       </section>
+      <footer className="landing-footer">
+        &copy; {new Date().getFullYear()} RiseTogether. All rights reserved. &trade;
+      </footer>
     </div>
   );
 };
