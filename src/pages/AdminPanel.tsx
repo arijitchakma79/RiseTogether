@@ -198,13 +198,14 @@ const AdminPanel: React.FC = () => {
 
   return (
     <div className="admin-panel">
-      <header className="admin-header">
-        <div className="admin-header-content">
-          <div className="admin-header-text">
+      {/* Redesigned Header */}
+      <header className="admin-header redesigned-header">
+        <div className="admin-header-content redesigned-header-content">
+          <div className="admin-header-text redesigned-header-text">
             <h1>🛠️ Admin Control Panel</h1>
             <p>Manage donation requests and monitor platform activity</p>
           </div>
-          <button className="logout-btn" onClick={handleLogout}>
+          <button className="logout-btn redesigned-logout-btn" onClick={handleLogout}>
             🚪 Logout
           </button>
         </div>
@@ -217,10 +218,10 @@ const AdminPanel: React.FC = () => {
         </div>
       )}
 
-      {/* Statistics Dashboard */}
-      <section className="stats-section">
+      {/* Redesigned Statistics Dashboard */}
+      <section className="stats-section redesigned-stats-section">
         <h2>📊 Overview</h2>
-        <div className="stats-grid">
+        <div className="stats-grid redesigned-stats-grid">
           <StatCard title="Total Requests" value={stats.total} color="blue" />
           <StatCard title="Pending" value={stats.pending} color="yellow" />
           <StatCard title="Approved" value={stats.approved} color="green" />
