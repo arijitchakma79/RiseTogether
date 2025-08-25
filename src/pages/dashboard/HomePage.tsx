@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import {
   get_all_donation_request,
-  get_fulfilled_donation_requests,
+  filter_donation_requests_by_status,
   filter_donation_requests_by_title,
 } from '../../apis/donation_requests_api';
 import {
@@ -16,17 +16,8 @@ import '../../styles/dashboard/HomePage.css';
 const ITEMS_PER_PAGE = 8;
 const SEARCH_DEBOUNCE_MS = 300;
 
-// Define available categories
-const CATEGORIES = [
-  'Clothing',
-  'Food',
-  'Education',
-  'Medical',
-  'Shelter',
-  'Other'
-];
+const CATEGORIES = ['Clothing', 'Food', 'Education', 'Medical', 'Shelter', 'Other'];
 
-// Define sort options
 const SORT_OPTIONS = [
   { value: 'newest', label: 'Newest First' },
   { value: 'oldest', label: 'Oldest First' },
@@ -53,15 +44,15 @@ const HomePage: React.FC = () => {
   const fetchRequests = async () => {
     try {
       let data;
-  
+
       if (user?.role === 'admin') {
         const response = await get_all_donation_request('donation_requests');
         data = response.data;
       } else {
-        const response = await get_fulfilled_donation_requests('donation_requests');
+        const response = await filter_donation_requests_by_status('donation_requests', 'approved');
         data = response.data;
       }
-  
+
       setRequests(data);
       setFiltered(data);
     } catch (error) {
@@ -69,7 +60,6 @@ const HomePage: React.FC = () => {
     }
   };
 
-  // Debounced search function
   const debouncedSearch = useCallback(
     async (query: string) => {
       if (!query.trim()) {
@@ -83,7 +73,6 @@ const HomePage: React.FC = () => {
         const response = await filter_donation_requests_by_title('donation_requests', query);
         let filteredData = response.data;
 
-        // Apply other filters to the search results
         if (filterCategory) {
           filteredData = filteredData.filter(req => req.category === filterCategory);
         }
@@ -95,11 +84,10 @@ const HomePage: React.FC = () => {
           });
         }
 
-        if (filterStatus) {
+        if (filterStatus && user?.role === 'admin') {
           filteredData = filteredData.filter(req => req.status === filterStatus);
         }
 
-        // Apply sorting
         filteredData.sort((a, b) => {
           switch (sortBy) {
             case 'newest':
@@ -120,10 +108,9 @@ const HomePage: React.FC = () => {
         setIsSearching(false);
       }
     },
-    [filterCategory, filterDates, filterStatus, sortBy]
+    [filterCategory, filterDates, filterStatus, sortBy, user]
   );
 
-  // Handle search input changes with debouncing
   useEffect(() => {
     const timer = setTimeout(() => {
       debouncedSearch(searchQuery);
@@ -133,10 +120,7 @@ const HomePage: React.FC = () => {
   }, [searchQuery, debouncedSearch]);
 
   const applyFilters = useCallback(() => {
-    if (searchQuery.trim()) {
-      // If there's a search query, let the debouncedSearch handle filtering
-      return;
-    }
+    if (searchQuery.trim()) return;
 
     let filteredData = [...requests];
 
@@ -151,11 +135,10 @@ const HomePage: React.FC = () => {
       });
     }
 
-    if (filterStatus) {
+    if (filterStatus && user?.role === 'admin') {
       filteredData = filteredData.filter(req => req.status === filterStatus);
     }
 
-    // Apply sorting
     filteredData.sort((a, b) => {
       switch (sortBy) {
         case 'newest':
@@ -171,7 +154,7 @@ const HomePage: React.FC = () => {
 
     setFiltered(filteredData);
     setCurrentPage(1);
-  }, [requests, filterCategory, filterDates, filterStatus, sortBy, searchQuery]);
+  }, [requests, filterCategory, filterDates, filterStatus, sortBy, searchQuery, user]);
 
   useEffect(() => {
     applyFilters();
@@ -253,10 +236,7 @@ const HomePage: React.FC = () => {
             />
           )}
 
-          <button 
-            onClick={handleClearFilters}
-            className="clear-filters-btn"
-          >
+          <button onClick={handleClearFilters} className="clear-filters-btn">
             Clear Filters
           </button>
         </div>

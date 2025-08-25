@@ -49,6 +49,7 @@ const AboutPage: React.FC = () => {
           <div className="slide-caption">{images[currentIndex].caption}</div>
         </div>
       </section>
+      <div className="wave-divider" />
 
       {/* Mission & Vision */}
       <section className="mission-vision">
@@ -67,6 +68,7 @@ const AboutPage: React.FC = () => {
           </p>
         </div>
       </section>
+      <div className="wave-divider" />
 
       {/* How We Help */}
       <section className="how-we-help">
@@ -94,6 +96,7 @@ const AboutPage: React.FC = () => {
           </div>
         </div>
       </section>
+      <div className="wave-divider" />
 
       {/* Impact Stats */}
       <section className="impact-section">
@@ -121,6 +124,30 @@ const AboutPage: React.FC = () => {
             <div className="impact-description">Communities across the remote areas of the Chittagong Hill Tracts</div>
           </div>
         </div>
+      </section>
+      <div className="wave-divider" />
+
+      {/* Inspirational Quote & CTA */}
+      <section className="cta-section" style={{textAlign: 'center', margin: '3rem 0 0 0'}}>
+        <blockquote style={{fontSize: '1.5rem', fontStyle: 'italic', color: '#3a3a7c', marginBottom: '1.5rem'}}>
+          "We rise by lifting others."
+        </blockquote>
+        <p style={{fontSize: '1.1rem', color: '#555', marginBottom: '1.5rem'}}>Join us in making a difference in the Chittagong Hill Tracts. Every act of kindness counts.</p>
+        <a href="/" style={{
+          display: 'inline-block',
+          background: 'linear-gradient(90deg, #ff4d4d, #3a3a7c)',
+          color: '#fff',
+          padding: '0.9rem 2.2rem',
+          borderRadius: '30px',
+          fontWeight: 600,
+          textDecoration: 'none',
+          fontSize: '1.1rem',
+          boxShadow: '0 2px 10px rgba(58,58,124,0.10)',
+          transition: 'background 0.2s',
+        }}
+        onMouseOver={e => (e.currentTarget.style.background = 'linear-gradient(90deg, #3a3a7c, #ff4d4d)')}
+        onMouseOut={e => (e.currentTarget.style.background = 'linear-gradient(90deg, #ff4d4d, #3a3a7c)')}
+        >Get Involved</a>
       </section>
     </div>
   );

@@ -310,6 +310,14 @@
   background-color: #d97706;
 }
 
+.reject-btn {
+  background-color: #f44336;
+  color: white;
+}
+.reject-btn:hover:not(:disabled) {
+  background-color: #d32f2f;
+}
+
 .no-requests {
   text-align: center;
   padding: 3rem;
