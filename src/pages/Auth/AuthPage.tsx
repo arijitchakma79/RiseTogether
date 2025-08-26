@@ -8,7 +8,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { Navigate } from 'react-router-dom';
 
 
-const ADMINS = import.meta.env.VITE_ADMINS?.split(',') || [];
+const ADMINS = ["arijitchakma79@gmail.com","saprativchakma99@gmail.com"];
 const AuthPage: React.FC = () => {
   const [isLogin, setIsLogin] = useState(true);
   const { isAuthenticated, user } = useAuth();
