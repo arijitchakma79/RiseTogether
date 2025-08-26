@@ -4,12 +4,15 @@ import { AuthProvider } from './contexts/AuthContext.tsx'
 import { DarkModeProvider } from './contexts/DarkModeContext.tsx'
 import './styles/index.css'
 import App from './App.tsx'
+import { BrowserRouter } from 'react-router-dom';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <AuthProvider>
       <DarkModeProvider>
-        <App />
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
       </DarkModeProvider>
     </AuthProvider>
   </StrictMode>,

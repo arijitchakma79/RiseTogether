@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { 
-  get_all_donation_request, 
-  update_donation_request 
+import {
+  get_all_donation_request,
+  update_donation_request
 } from '../apis/donation_requests_api';
 import { DonationFilter, Pagination } from '../components';
 import { useAuth } from '../contexts/AuthContext';
@@ -13,7 +13,7 @@ interface DonationRequest {
   title: string;
   description: string;
   category: string;
-  status: 'pending' | 'approved' | 'fulfilled';
+  status: 'pending' | 'approved' | 'fulfilled' | 'rejected';
   created_at: string;
   contact_number: string;
   contact_email?: string;
@@ -39,13 +39,11 @@ const AdminPanel: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  
-  // Filter states
+
   const [filterCategory, setFilterCategory] = useState('');
   const [filterStatus, setFilterStatus] = useState('');
   const [filterDates, setFilterDates] = useState({ from: '', to: '' });
-  
-  // Stats
+
   const [stats, setStats] = useState<AdminStats>({
     total: 0,
     pending: 0,
@@ -67,13 +65,9 @@ const AdminPanel: React.FC = () => {
       setLoading(true);
       const response = await get_all_donation_request('donation_requests');
       if (response.data) {
-        console.log('Fetched requests:', response.data); // Add logging
         setRequests(response.data);
-      } else {
-        console.log('No requests data in response'); // Add logging
       }
     } catch (err: any) {
-      console.error('Error fetching requests:', err); // Add logging
       setError(err.message || 'Failed to fetch requests');
     } finally {
       setLoading(false);
@@ -94,7 +88,7 @@ const AdminPanel: React.FC = () => {
     if (filterDates.from && filterDates.to) {
       filtered = filtered.filter(req => {
         const createdAt = new Date(req.created_at);
-        return createdAt >= new Date(filterDates.from) && 
+        return createdAt >= new Date(filterDates.from) &&
                createdAt <= new Date(filterDates.to);
       });
     }
@@ -108,17 +102,24 @@ const AdminPanel: React.FC = () => {
     const pending = requests.filter(req => req.status === 'pending').length;
     const approved = requests.filter(req => req.status === 'approved').length;
     const fulfilled = requests.filter(req => req.status === 'fulfilled').length;
-    
+
     setStats({ total, pending, approved, fulfilled });
   };
 
-  const handleStatusChange = async (requestId: string, newStatus: 'pending' | 'approved' | 'fulfilled') => {
+  const handleStatusChange = async (
+    requestId: string,
+    newStatus: 'approved' | 'rejected'
+  ) => {
+    if (newStatus !== 'approved' && newStatus !== 'rejected') {
+      setError('Admins can only approve or reject requests.');
+      return;
+    }
+
     try {
       await update_donation_request('donation_requests', requestId, { status: newStatus });
-      
-      // Update local state
-      setRequests(prevRequests =>
-        prevRequests.map(req =>
+
+      setRequests(prev =>
+        prev.map(req =>
           req.id === requestId ? { ...req, status: newStatus } : req
         )
       );
@@ -156,7 +157,7 @@ const AdminPanel: React.FC = () => {
           {request.status.toUpperCase()}
         </span>
       </div>
-      
+
       <div className="request-info">
         <p><strong>Category:</strong> {request.category}</p>
         <p><strong>Contact:</strong> {request.contact_number}</p>
@@ -175,18 +176,11 @@ const AdminPanel: React.FC = () => {
           Approve
         </button>
         <button
-          className="fulfill-btn"
-          onClick={() => handleStatusChange(request.id, 'fulfilled')}
-          disabled={request.status === 'fulfilled'}
+          className="reject-btn"
+          onClick={() => handleStatusChange(request.id, 'rejected')}
+          disabled={request.status === 'rejected'}
         >
-          Mark Fulfilled
-        </button>
-        <button
-          className="pending-btn"
-          onClick={() => handleStatusChange(request.id, 'pending')}
-          disabled={request.status === 'pending'}
-        >
-          Mark Pending
+          Reject
         </button>
       </div>
     </div>
@@ -198,13 +192,13 @@ const AdminPanel: React.FC = () => {
 
   return (
     <div className="admin-panel">
-      <header className="admin-header">
-        <div className="admin-header-content">
-          <div className="admin-header-text">
+      <header className="admin-header redesigned-header">
+        <div className="admin-header-content redesigned-header-content">
+          <div className="admin-header-text redesigned-header-text">
             <h1>🛠️ Admin Control Panel</h1>
             <p>Manage donation requests and monitor platform activity</p>
           </div>
-          <button className="logout-btn" onClick={handleLogout}>
+          <button className="logout-btn redesigned-logout-btn" onClick={handleLogout}>
             🚪 Logout
           </button>
         </div>
@@ -217,10 +211,9 @@ const AdminPanel: React.FC = () => {
         </div>
       )}
 
-      {/* Statistics Dashboard */}
-      <section className="stats-section">
+      <section className="stats-section redesigned-stats-section">
         <h2>📊 Overview</h2>
-        <div className="stats-grid">
+        <div className="stats-grid redesigned-stats-grid">
           <StatCard title="Total Requests" value={stats.total} color="blue" />
           <StatCard title="Pending" value={stats.pending} color="yellow" />
           <StatCard title="Approved" value={stats.approved} color="green" />
@@ -228,7 +221,6 @@ const AdminPanel: React.FC = () => {
         </div>
       </section>
 
-      {/* Filters */}
       <section className="filters-section">
         <h2>🔍 Filter Requests</h2>
         <DonationFilter
@@ -241,10 +233,9 @@ const AdminPanel: React.FC = () => {
         />
       </section>
 
-      {/* Requests Management */}
       <section className="requests-section">
         <h2>📋 Manage Requests ({filteredRequests.length})</h2>
-        
+
         {paginatedRequests.length === 0 ? (
           <div className="no-requests">
             <p>No requests found with current filters.</p>
@@ -269,4 +260,3 @@ const AdminPanel: React.FC = () => {
 };
 
 export default AdminPanel;
-  

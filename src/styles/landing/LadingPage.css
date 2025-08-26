@@ -1,52 +1,175 @@
 /* Fullscreen hero section */
 .landing-container {
-    height: 100vh;
-    width: 100%;
-    background: linear-gradient(135deg, #ffe5ec, #f0f4f8);
+    min-height: 100vh;
+    width: 100vw;
+    background: linear-gradient(135deg, #f7f9fc 60%, #e0e7ff 100%);
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 2rem;
+    padding: 2rem 1rem 0 1rem;
     box-sizing: border-box;
-  }
-  
-  /* Title */
-  .site-name {
+    position: relative;
+}
+
+.landing-content {
+    z-index: 2;
+    max-width: 480px;
+    width: 100%;
+    margin: 0 auto;
+    background: rgba(255,255,255,0.85);
+    border-radius: 18px;
+    box-shadow: 0 4px 18px rgba(58,58,124,0.07);
+    padding: 2.5rem 2rem 2rem 2rem;
+}
+
+/* Remove the blue wave divider */
+.landing-wave-divider {
+    display: none;
+}
+
+/* Title */
+.site-name {
     font-size: 3.5rem;
     font-weight: 800;
-    color: #222;
-    margin-bottom: 1.5rem;
+    color: #3a3a7c;
+    margin-bottom: 0.7rem;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
-  
-  /* Typewriter text */
-  .typewriter {
+}
+
+.landing-subtitle {
+    font-size: 1.25rem;
+    color: #555;
+    margin-bottom: 1.7rem;
+    font-weight: 500;
+}
+
+/* Typewriter text */
+.typewriter {
     font-size: 1.8rem;
     color: #444;
     font-weight: 500;
     font-family: 'Courier New', Courier, monospace;
     overflow: hidden;
-    border-right: 0.15em solid #ff6b6b;
+    border-right: 0.15em solid #ff4d4d;
     white-space: nowrap;
     width: 0;
     animation: typing 4s steps(40, end) forwards, blink 0.75s step-end infinite;
-  }
-  
-  /* Typing animation */
-  @keyframes typing {
-    from {
-      width: 0;
+    margin-bottom: 2.2rem;
+}
+
+/* Typing animation */
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+/* Cursor blink */
+@keyframes blink {
+    50% { border-color: transparent; }
+}
+
+.landing-cta-btn {
+    display: inline-block;
+    background: linear-gradient(90deg, #ff4d4d, #3a3a7c);
+    color: #fff;
+    padding: 1rem 2.5rem;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 1.15rem;
+    text-decoration: none;
+    box-shadow: 0 2px 10px rgba(58,58,124,0.10);
+    transition: background 0.2s;
+    margin-bottom: 1.5rem;
+}
+.landing-cta-btn:hover {
+    background: linear-gradient(90deg, #3a3a7c, #ff4d4d);
+}
+
+/* Footer trademark */
+.landing-footer {
+    width: 100vw;
+    text-align: center;
+    padding: 1.2rem 0 1.2rem 0;
+    color: #888;
+    font-size: 1rem;
+    background: transparent;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 10;
+    letter-spacing: 0.5px;
+}
+
+.landing-info-section {
+    background: #fff;
+    max-width: 700px;
+    margin: 0 auto 0 auto;
+    border-radius: 18px;
+    box-shadow: 0 4px 18px rgba(58,58,124,0.07);
+    padding: 2.5rem 2rem 2rem 2rem;
+    text-align: center;
+    margin-top: -30px;
+    position: relative;
+    z-index: 3;
+}
+.landing-info-section h2 {
+    color: #ff4d4d;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+.landing-info-section p {
+    color: #555;
+    font-size: 1.08rem;
+}
+
+@media (max-width: 900px) {
+    .site-name {
+        font-size: 2.2rem;
     }
-    to {
-      width: 100%;
+    .landing-content {
+        padding: 1.2rem 0.7rem 1rem 0.7rem;
+        border-radius: 12px;
     }
-  }
-  
-  /* Cursor blink */
-  @keyframes blink {
-    50% {
-      border-color: transparent;
+    .landing-info-section {
+        padding: 1.2rem 0.7rem 1rem 0.7rem;
+        border-radius: 12px;
     }
-  }
+}
+@media (max-width: 600px) {
+    .site-name {
+        font-size: 1.5rem;
+    }
+    .landing-subtitle {
+        font-size: 1rem;
+    }
+    .typewriter {
+        font-size: 1.1rem;
+    }
+    .landing-cta-btn {
+        font-size: 0.98rem;
+        padding: 0.7rem 1.2rem;
+    }
+    .landing-content {
+        padding: 0.7rem 0.2rem 0.7rem 0.2rem;
+        border-radius: 10px;
+    }
+    .landing-info-section {
+        padding: 0.7rem 0.2rem 0.7rem 0.2rem;
+        border-radius: 10px;
+        margin-top: -15px;
+    }
+    .landing-info-section h2 {
+        font-size: 1.1rem;
+    }
+    .landing-info-section p {
+        font-size: 0.95rem;
+    }
+    .landing-footer {
+        font-size: 0.92rem;
+        padding: 0.7rem 0 0.7rem 0;
+    }
+}
   

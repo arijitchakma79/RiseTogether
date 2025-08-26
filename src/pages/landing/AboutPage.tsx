@@ -4,15 +4,19 @@ import '../../styles/landing/AboutPage.css';
 const images = [
   {
     src: '/src/assets/images/about1.jpg',
-    caption: 'Community Unity Festival',
+    caption: 'Colloborations with NGOs',
   },
   {
-    src: '/src/assets/images/about1.jpg',
-    caption: 'Free Family Portrait Day',
+    src: '/src/assets/images/about2.jpg',
+    caption: 'Educational Seminars',
   },
   {
-    src: '/src/assets/images/about1.jpg',
-    caption: 'Youth Empowerment Workshop',
+    src: '/src/assets/images/about3.jpg',
+    caption: 'Donation Drives',
+  },
+  {
+    src: '/src/assets/images/about4.png',
+    caption: 'Seminar on Hygiene',
   },
 ];
 
@@ -49,6 +53,7 @@ const AboutPage: React.FC = () => {
           <div className="slide-caption">{images[currentIndex].caption}</div>
         </div>
       </section>
+      <div className="wave-divider" />
 
       {/* Mission & Vision */}
       <section className="mission-vision">
@@ -67,6 +72,7 @@ const AboutPage: React.FC = () => {
           </p>
         </div>
       </section>
+      <div className="wave-divider" />
 
       {/* How We Help */}
       <section className="how-we-help">
@@ -94,6 +100,7 @@ const AboutPage: React.FC = () => {
           </div>
         </div>
       </section>
+      <div className="wave-divider" />
 
       {/* Impact Stats */}
       <section className="impact-section">
@@ -122,6 +129,33 @@ const AboutPage: React.FC = () => {
           </div>
         </div>
       </section>
+      <div className="wave-divider" />
+
+      {/* Inspirational Quote & CTA */}
+      <section className="cta-section" style={{textAlign: 'center', margin: '3rem 0 0 0'}}>
+        <blockquote style={{fontSize: '1.5rem', fontStyle: 'italic', color: '#3a3a7c', marginBottom: '1.5rem'}}>
+          "We rise by lifting others."
+        </blockquote>
+        <p style={{fontSize: '1.1rem', color: '#555', marginBottom: '1.5rem'}}>Join us in making a difference in the Chittagong Hill Tracts. Every act of kindness counts.</p>
+        <a href="http://localhost:5173/auth" style={{
+          display: 'inline-block',
+          background: 'linear-gradient(90deg, #ff4d4d, #3a3a7c)',
+          color: '#fff',
+          padding: '0.9rem 2.2rem',
+          borderRadius: '30px',
+          fontWeight: 600,
+          textDecoration: 'none',
+          fontSize: '1.1rem',
+          boxShadow: '0 2px 10px rgba(58,58,124,0.10)',
+          transition: 'background 0.2s',
+        }}
+        onMouseOver={e => (e.currentTarget.style.background = 'linear-gradient(90deg, #3a3a7c, #ff4d4d)')}
+        onMouseOut={e => (e.currentTarget.style.background = 'linear-gradient(90deg, #ff4d4d, #3a3a7c)')}
+        >Get Involved</a>
+      </section>
+      <footer className="landing-footer">
+        &copy; {new Date().getFullYear()} RiseTogether. All rights reserved. &trade;
+      </footer>
     </div>
   );
 };
