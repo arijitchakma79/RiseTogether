@@ -7,7 +7,7 @@ import React, {
     useEffect,
     ReactNode,
   } from 'react';
-  import { AuthContextType, Role, User } from './authTypes';
+  import { AuthContextType, User } from './authTypes';
   import { login_user, create_user, logout_user } from '../apis/auth';
   import determineRoleFromEmail from '../utils/determine_email_roles';
   import supabase from '../supabase/supabaseClient';
@@ -97,10 +97,9 @@ import React, {
       email: string,
       password: string,
       fullName: string,
-      role: Role = 'user'
     ) => {
       setIsLoading(true);
-      const result = await create_user(email, password, fullName, role);
+      const result = await create_user(email, password, fullName);
       setIsLoading(false);
       return result;
     };

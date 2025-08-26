@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { 
   get_all_donation_request, 
   update_donation_request 
-} from '../apis/donation_requests_api';
-import { DonationFilter, DonationRequestCard, Pagination } from '../components';
-import { useAuth } from '../contexts/AuthContext';
+} from '../../apis/donation_requests_api';
+import DonationFilter from '../../components/dashboard/DonationFilter';
+import Pagination from '../../components/dashboard/Pagination';
+import { useAuth } from '../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import '../styles/AdminPanel.css';
 

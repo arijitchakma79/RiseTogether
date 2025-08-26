@@ -32,7 +32,7 @@ const FormField: React.FC<FormFieldProps> = ({
             name={name}
             value={value}
             onChange={onChange}
-            placeholder=" "
+            placeholder={placeholder}
             className="field-input textarea"
             required={!label.toLowerCase().includes('optional')}
           />
@@ -63,7 +63,7 @@ const FormField: React.FC<FormFieldProps> = ({
             name={name}
             value={value}
             onChange={onChange}
-            placeholder=" "
+            placeholder={placeholder}
             className="field-input"
             required={!label.toLowerCase().includes('optional')}
           />
